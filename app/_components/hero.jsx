@@ -1,7 +1,11 @@
+"use client"
 import Image from 'next/image'
 import React from 'react'
+import { useAccount } from 'wagmi';
 
 function Hero() {
+  const { address, isConnected } = useAccount();
+  
   return (
     <div className="p-20">
       <section className="relative w-full h-[80vh] flex flex-col items-center justify-between text-white rounded-3xl overflow-hidden max-w-7xl mx-auto">
@@ -24,8 +28,8 @@ function Hero() {
             Celo verse is a web3 gaming platform that leverages the Celo blockchain to offer players a unique gaming experience with integrated crypto rewards NFT.
           </p>
           <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-            <button className="px-8 py-3 text-base font-semibold rounded-full border-2 border-white text-white hover:bg-white/10 transition">
-              Connect Wallet and Play &gt;
+            <button  className="px-8 py-3 text-base font-semibold rounded-full border-2 border-white text-white hover:bg-white/10 transition">
+              {isConnected? (<div>Play</div>):(<div>Connect Wallet and Play &gt;</div>)}
             </button>
           </div>
         </div>
