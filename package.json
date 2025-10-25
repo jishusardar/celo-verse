@@ -13,20 +13,37 @@
     "@rainbow-me/rainbowkit": "^2.2.9",
     "@supabase/supabase-js": "^2.76.1",
     "@tanstack/react-query": "^5.90.5",
+<<<<<<< HEAD
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "http": "^0.0.1-security",
+=======
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "express": "^5.1.0",
+    "http": "^0.0.1-security",
+    "lucide-react": "^0.548.0",
+    "motion": "^12.23.24",
+>>>>>>> dd2f9f0ae1e20f3ee59c5e1e9a4588c3c57333be
     "next": "15.5.4",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1",
+<<<<<<< HEAD
+=======
+    "tailwind-merge": "^3.3.1",
+>>>>>>> dd2f9f0ae1e20f3ee59c5e1e9a4588c3c57333be
     "viem": "^2.38.4",
     "wagmi": "^2.18.2"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "tailwindcss": "^4",
+<<<<<<< HEAD
     "concurrently": "^8.2.2"
+=======
+    "tw-animate-css": "^1.4.0"
+>>>>>>> dd2f9f0ae1e20f3ee59c5e1e9a4588c3c57333be
   }
 }
