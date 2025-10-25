@@ -10,9 +10,6 @@ function Header() {
           <div className="w-6 h-6 mr-2 bg-white rounded-full"></div>
           Celoverse
         </div>
-        <nav className="hidden md:flex space-x-6 text-sm text-gray-300">
-          <a href="#" className="hover:text-white transition">Features</a>
-        </nav>
       </div>
 
         <Link href="/home" className='px-4 py-2 text-sm font-semibold rounded-full border border-gray-600 text-white bg-transparent hover:border-white transition'>
