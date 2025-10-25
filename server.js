@@ -93,7 +93,8 @@ app.prepare().then(() => {
         body: 'default',
         hair: 'default',
         clothes: 'default',
-        accessories: 'none'
+        accessories: 'none',
+        character: 'Adam'
       },
       isSitting: false,
       sittingOn: null
