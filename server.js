@@ -40,7 +40,41 @@ app.prepare().then(() => {
     { id: 'home1', type: 'home', x: 500, y: 150, width: 80, height: 100 },
     { id: 'chair1', type: 'chair', x: 200, y: 300, width: 30, height: 30, occupied: false },
     { id: 'chair2', type: 'chair', x: 400, y: 350, width: 30, height: 30, occupied: false },
+    { id: 'obstacle1', type: 'obstacle', x: 150, y: 400, width: 50, height: 50 },
+    { id: 'obstacle2', type: 'obstacle', x: 600, y: 300, width: 40, height: 40 },
+    { id: 'rock1', type: 'obstacle', x: 50, y: 50, width: 30, height: 30 },
   ];
+
+  // Collision detection function
+  const checkCollision = (player, newX, newY, playerWidth = 30, playerHeight = 30) => {
+    // Check collision with world objects (excluding chairs when not occupied)
+    for (const obj of worldObjects) {
+      // Skip chairs that are not occupied (players can walk through empty chairs)
+      if (obj.type === 'chair' && !obj.occupied) continue;
+      
+      // Check if player rectangle intersects with object rectangle
+      if (newX < obj.x + obj.width &&
+          newX + playerWidth > obj.x &&
+          newY < obj.y + obj.height &&
+          newY + playerHeight > obj.y) {
+        return true; // Collision detected
+      }
+    }
+    
+    // Check collision with other players
+    for (const [playerId, otherPlayer] of players) {
+      if (playerId === player.id || otherPlayer.isSitting) continue;
+      
+      if (newX < otherPlayer.x + otherPlayer.width &&
+          newX + playerWidth > otherPlayer.x &&
+          newY < otherPlayer.y + otherPlayer.height &&
+          newY + playerHeight > otherPlayer.y) {
+        return true; // Collision with another player
+      }
+    }
+    
+    return false; // No collision
+  };
 
   // Socket.IO event handlers
   io.on('connection', (socket) => {
@@ -80,15 +114,20 @@ app.prepare().then(() => {
     socket.on('playerMove', ({ deltaX, deltaY }) => {
       const player = players.get(socket.id);
       if (player && !player.isSitting) {
-        player.x += deltaX;
-        player.y += deltaY;
+        const newX = player.x + deltaX;
+        const newY = player.y + deltaY;
 
         // Keep player in bounds
-        player.x = Math.max(0, Math.min(770, player.x));
-        player.y = Math.max(0, Math.min(570, player.y));
+        const boundedX = Math.max(0, Math.min(770, newX));
+        const boundedY = Math.max(0, Math.min(570, newY));
 
-        players.set(socket.id, player);
-        io.emit('playerMoved', { id: socket.id, x: player.x, y: player.y });
+        // Check for collisions before updating position
+        if (!checkCollision(player, boundedX, boundedY)) {
+          player.x = boundedX;
+          player.y = boundedY;
+          players.set(socket.id, player);
+          io.emit('playerMoved', { id: socket.id, x: player.x, y: player.y });
+        }
       }
     });
 

@@ -21,7 +21,7 @@ function Hero() {
           />
         <div className="absolute inset-0 bg-black/40" />
       </div>
-      <div className="relative z-20 text-center max-w-4xl p-6 md:p-12 pt-20 flex flex-col items-center justify-center flex-grow"> 
+      <div className="relative z-20 text-center max-w-4xl p-6 md:p-12 pt-20 flex flex-col items-center justify-center grow"> 
           <h1 className="text-5xl sm:text-7xl font-extrabold mb-6 leading-snug">
             Celoverse <br className="sm:hidden" />
           </h1>

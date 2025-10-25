@@ -4,19 +4,20 @@ import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 
 // import ChatPanel from '../components/ChatPanel';
-// import AvatarCustomization from '../components/AvatarCustomization';
-// import PlayerList from '../components/PlayerList';
+import AvatarCustomization from './_components/AvatarCustomization';
+import PlayerList from './_components/PlayerList';
 // import Web3Integration from '../components/Web3Integration';
 
 import GameCanvas from '../_components/GameCanvas';
 import { GameProvider } from '../context/GameContext';
+import ChatPanel from './_components/chatpanel';
 import Game from '../_components/Game';
-
 
 export default function Home() {
   const [socket, setSocket] = useState(null);
   const [isConnected, setIsConnected] = useState(false);
   const [showAvatarCustomization, setShowAvatarCustomization] = useState(false);
+  const [customiseOption, setCustomiseOption] = useState(false);
 
   useEffect(() => {
     const newSocket = io('http://localhost:3000');
@@ -41,7 +42,7 @@ export default function Home() {
 
   if (!socket) {
     return (
-      <div className="flex items-center justify-center h-screen bg-gradient-to-br from-blue-500 to-purple-600">
+      <div className="flex items-center justify-center h-screen bg-linear-to-br from-blue-500 to-purple-600">
         <div className="text-white text-xl">Connecting to server...</div>
       </div>
     );
@@ -49,12 +50,12 @@ export default function Home() {
 
   return (
     <GameProvider socket={socket}>
-      <div className="game-container">
+      <div className="game-container h-screen flex flex-col">
         {/* Header */}
-        <div className="bg-black bg-opacity-20 text-white p-4 flex justify-between items-center">
-          <div className="flex items-center space-x-4">
-            <h1 className="text-2xl font-bold">🌍 Web3 Virtual World</h1>
-            <div className={`px-3 py-1 rounded-full text-sm ${
+        <div className="bg-black bg-opacity-20 text-white p-2 lg:p-4 flex flex-col sm:flex-row justify-between items-center gap-2">
+          <div className="flex items-center space-x-2 lg:space-x-4">
+            <h1 className="text-lg lg:text-2xl font-bold">🌍 Web3 Virtual World</h1>
+            <div className={`px-2 lg:px-3 py-1 rounded-full text-xs lg:text-sm ${
               isConnected ? 'bg-green-500' : 'bg-red-500'
             }`}>
               {isConnected ? 'Connected' : 'Disconnected'}
@@ -63,7 +64,7 @@ export default function Home() {
           <div className="flex space-x-2">
             <button
               onClick={() => setShowAvatarCustomization(!showAvatarCustomization)}
-              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors"
+              className="px-3 lg:px-4 py-1 lg:py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors text-sm lg:text-base"
             >
               Customize Avatar
             </button>
@@ -71,32 +72,33 @@ export default function Home() {
         </div>
 
         {/* Main Game Area */}
-        <div className="flex-1 flex">
+        <div className="flex-1 flex flex-col lg:flex-row">
           {/* Game Canvas */}
-          <div className="flex-1 flex items-center justify-center p-4">
+          <div className="flex-1 flex items-center justify-center p-2 lg:p-4 min-h-0">
             <Game />
           </div>
 
           {/* Side Panels */}
-          {/* <div className="w-80 bg-black bg-opacity-10 flex flex-col">
+          <div className="w-full lg:w-80 bg-black bg-opacity-10 flex flex-col max-h-96 lg:max-h-none">
             <PlayerList />
-            <Web3Integration />
+            {/* <Web3Integration /> */}
             <ChatPanel />
-          </div> */}
+          </div>
         </div>
 
-        {/* Avatar Customization Modal
+        {/* Avatar Customization Modal */}
         {showAvatarCustomization && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 overflow-scroll">
             <div className="avatar-customization max-w-md w-full mx-4">
               <AvatarCustomization onClose={() => setShowAvatarCustomization(false)} />
             </div>
           </div>
-        )} */}
+        )}
 
         {/* Instructions */}
-        <div className="bg-black bg-opacity-20 text-white p-2 text-sm text-center">
-          Use WASD or Arrow Keys to move • Click on chairs to sit • Press Enter to chat
+        <div className="bg-black bg-opacity-20 text-white p-2 text-xs lg:text-sm text-center">
+          <span className="hidden sm:inline">Use WASD or Arrow Keys to move • Click on chairs to sit • Press Enter to chat</span>
+          <span className="sm:hidden">Touch controls below • Tap chairs to sit • Tap chat to message</span>
         </div>
       </div>
     </GameProvider>

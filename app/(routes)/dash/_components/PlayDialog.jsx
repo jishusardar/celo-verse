@@ -9,7 +9,7 @@ export function PlayDialog() {
   return (
     <CardContainer className="inter-var">
       <CardBody
-        className="bg-gray-50 relative group/card  hover:shadow-2xl hover:shadow-emerald-500/[0.1] bg-black dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[30rem] h-auto rounded-xl p-6 border  ">
+        className="relative group/card  hover:shadow-2xl bg-black dark:border-white/0.2 border-black/10 w-auto sm:w-120 h-auto rounded-xl p-6 border  ">
         <CardItem
           translateZ="50"
           className="text-3xl font-bold text-white">
