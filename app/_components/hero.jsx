@@ -1,5 +1,6 @@
 "use client"
 import Image from 'next/image'
+import Link from 'next/link';
 import React from 'react'
 import { useAccount } from 'wagmi';
 
@@ -29,7 +30,7 @@ function Hero() {
           </p>
           <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
             <button  className="px-8 py-3 text-base font-semibold rounded-full border-2 border-white text-white hover:bg-white/10 transition">
-              {isConnected? (<div>Play</div>):(<div>Connect Wallet and Play &gt;</div>)}
+              {isConnected? (<div> <Link href={'/dash'}>Play</Link></div>):(<div>Connect Wallet and Play &gt;</div>)}
             </button>
           </div>
         </div>
