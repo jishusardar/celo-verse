@@ -12,25 +12,40 @@ import GameCanvas from '../_components/GameCanvas';
 import { GameProvider } from '../context/GameContext';
 import ChatPanel from './_components/chatpanel';
 import Game from '../_components/Game';
+import { Providers } from '../lib/Providers';
+import { useAccount } from 'wagmi';
 
 export default function Home() {
   const [socket, setSocket] = useState(null);
-  const [isConnected, setIsConnected] = useState(false);
+  const [isConnectedBro, setIsConnectedBro] = useState(false);
   const [showAvatarCustomization, setShowAvatarCustomization] = useState(false);
   const [customiseOption, setCustomiseOption] = useState(false);
+  const { address, isConnected } = useAccount();
+    const [userName, setUserName] = useState();
+
+    useEffect(() => {
+              if (!address) return;
+              async function loadUser() {
+                  const user = await existProfile(address);
+                  console.log(user);
+                  setUserName(user ? user.username : null);
+                  
+              }
+              loadUser();
+             },[address])
 
   useEffect(() => {
     const newSocket = io('http://localhost:3000');
-    setIsConnected(true);
+    setIsConnectedBro(true);
     
     newSocket.on('connect', () => {
       console.log('Connected to server');
-      setIsConnected(true);
+      setIsConnectedBro(true);
     });
 
     newSocket.on('disconnect', () => {
       console.log('Disconnected from server');
-      setIsConnected(false);
+      setIsConnectedBro(false);
     });
 
     setSocket(newSocket);
@@ -50,15 +65,16 @@ export default function Home() {
 
   return (
     <GameProvider socket={socket}>
+        <Providers >
       <div className="game-container h-screen flex flex-col">
         {/* Header */}
         <div className="bg-black bg-opacity-20 text-white p-2 lg:p-4 flex flex-col sm:flex-row justify-between items-center gap-2">
           <div className="flex items-center space-x-2 lg:space-x-4">
             <h1 className="text-lg lg:text-2xl font-bold">🌍 Web3 Virtual World</h1>
             <div className={`px-2 lg:px-3 py-1 rounded-full text-xs lg:text-sm ${
-              isConnected ? 'bg-green-500' : 'bg-red-500'
+              isConnectedBro ? 'bg-green-500' : 'bg-red-500'
             }`}>
-              {isConnected ? 'Connected' : 'Disconnected'}
+              {isConnectedBro ? 'Connected' : 'Disconnected'}
             </div>
           </div>
           <div className="flex space-x-2">
@@ -101,6 +117,7 @@ export default function Home() {
           <span className="sm:hidden">Touch controls below • Tap chairs to sit • Tap chat to message</span>
         </div>
       </div>
+      </Providers>
     </GameProvider>
   );
 }

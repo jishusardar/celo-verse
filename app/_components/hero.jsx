@@ -20,7 +20,7 @@ function Hero() {
             const user = await existProfile(address);
             console.log(user);
             setUserName(user ? user.username : null);
-            setUserid(user ? user.id : null);
+            
         }
         loadUser();
         user_wallet_address = address;

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import {setPlayerState} from '../action'
 
 const GameContext = createContext(undefined);
 

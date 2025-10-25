@@ -50,10 +50,10 @@ export async function upsertUser(walletAddress, username) {
 }
 
 //player state creation, player joins
-export async function setPlayerState(userId, x, y, room = 'playground', hp = 100, hunger = 0) {
+export async function setPlayerState(player_name,username) {
   const { data, error } = await supabase
     .from('player_state')
-    .upsert({ user_id: userId, x, y, room, hp, hunger, last_update: new Date().toISOString() }, { onConflict: 'user_id' })
+    .upsert({ player_name,username, last_update: new Date().toISOString() }, { onConflict: 'user_id' })
     .select()
     .single();
   if (error) throw error;
