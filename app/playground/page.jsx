@@ -49,12 +49,12 @@ export default function Home() {
 
   return (
     <GameProvider socket={socket}>
-      <div className="game-container">
+      <div className="game-container h-screen flex flex-col">
         {/* Header */}
-        <div className="bg-black bg-opacity-20 text-white p-4 flex justify-between items-center">
-          <div className="flex items-center space-x-4">
-            <h1 className="text-2xl font-bold">🌍 Web3 Virtual World</h1>
-            <div className={`px-3 py-1 rounded-full text-sm ${
+        <div className="bg-black bg-opacity-20 text-white p-2 lg:p-4 flex flex-col sm:flex-row justify-between items-center gap-2">
+          <div className="flex items-center space-x-2 lg:space-x-4">
+            <h1 className="text-lg lg:text-2xl font-bold">🌍 Web3 Virtual World</h1>
+            <div className={`px-2 lg:px-3 py-1 rounded-full text-xs lg:text-sm ${
               isConnected ? 'bg-green-500' : 'bg-red-500'
             }`}>
               {isConnected ? 'Connected' : 'Disconnected'}
@@ -63,7 +63,7 @@ export default function Home() {
           <div className="flex space-x-2">
             <button
               onClick={() => setShowAvatarCustomization(!showAvatarCustomization)}
-              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors"
+              className="px-3 lg:px-4 py-1 lg:py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors text-sm lg:text-base"
             >
               Customize Avatar
             </button>
@@ -71,14 +71,14 @@ export default function Home() {
         </div>
 
         {/* Main Game Area */}
-        <div className="flex-1 flex">
+        <div className="flex-1 flex flex-col lg:flex-row">
           {/* Game Canvas */}
-          <div className="flex-1 flex items-center justify-center p-4">
+          <div className="flex-1 flex items-center justify-center p-2 lg:p-4 min-h-0">
             <GameCanvas />
           </div>
 
           {/* Side Panels */}
-          <div className="w-80 bg-black bg-opacity-10 flex flex-col">
+          <div className="w-full lg:w-80 bg-black bg-opacity-10 flex flex-col max-h-96 lg:max-h-none">
             <PlayerList />
             {/* <Web3Integration /> */}
             <ChatPanel />
@@ -95,8 +95,9 @@ export default function Home() {
         )}
 
         {/* Instructions */}
-        <div className="bg-black bg-opacity-20 text-white p-2 text-sm text-center">
-          Use WASD or Arrow Keys to move • Click on chairs to sit • Press Enter to chat
+        <div className="bg-black bg-opacity-20 text-white p-2 text-xs lg:text-sm text-center">
+          <span className="hidden sm:inline">Use WASD or Arrow Keys to move • Click on chairs to sit • Press Enter to chat</span>
+          <span className="sm:hidden">Touch controls below • Tap chairs to sit • Tap chat to message</span>
         </div>
       </div>
     </GameProvider>
