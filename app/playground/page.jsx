@@ -14,6 +14,7 @@ import ChatPanel from './_components/chatpanel';
 import Game from '../_components/Game';
 import { Providers } from '../lib/Providers';
 import { useAccount } from 'wagmi';
+import {existProfile} from '../action'
 
 export default function Home() {
   const [socket, setSocket] = useState(null);
