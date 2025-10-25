@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
@@ -7,11 +8,18 @@ function Header() {
     <div className="flex justify-between items-center max-w-7xl mx-auto">
       <div className="flex items-center space-x-8">
         <div className="flex items-center text-white text-xl font-bold">
-          <div className="w-6 h-6 mr-2 bg-white rounded-full"></div>
+          {/* {logo} */}
+          <div className='mr-2'>
+            <Image
+              src={'/logo.png'} 
+              alt='logo'
+              width={50}
+              height={50}
+            />
+          </div>
           Celoverse
         </div>
       </div>
-
         <Link href="/home" className='px-4 py-2 text-sm font-semibold rounded-full border border-gray-600 text-white bg-transparent hover:border-white transition'>
         Connect Wallet
         </Link>
