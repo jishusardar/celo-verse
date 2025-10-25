@@ -3,12 +3,49 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { Input } from '@/components/ui/input';
 import Image from 'next/image'
 import Link from 'next/link';
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import { useAccount } from 'wagmi';
+import { existProfile,upsertUser } from '../action';
+import { redirect } from 'next/navigation';
+
+export let user_wallet_address ;
 
 function Hero() {
   const { address, isConnected } = useAccount();
-  
+  const [userName, setUserName] = useState();
+
+  useEffect(() => {
+        if (!address) return;
+        async function loadUser() {
+            const user = await existProfile(address);
+            console.log(user);
+            setUserName(user ? user.username : null);
+            setUserid(user ? user.id : null);
+        }
+        loadUser();
+        user_wallet_address = address;
+    },[address])
+
+    function checkPlay() {
+      if(userName) {
+        redirect('/dash');
+      }
+    }
+
+  async function handleProfileCreation(){
+        if (!address) {
+            alert('Connect wallet')
+        }
+        if (!userName) {
+            alert('Enter user-name')
+        }
+        try {
+            await existProfile(address);
+            await upsertUser(address,userName);
+        } catch (error) {
+            throw error
+        }
+    }
   return (
     <div className="p-20">
       <section className="relative w-full h-[80vh] flex flex-col items-center justify-between text-black dark:text-white rounded-3xl overflow-hidden max-w-7xl mx-auto">
@@ -33,7 +70,7 @@ function Hero() {
           <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
             {isConnected? (<AlertDialog>
               <AlertDialogTrigger asChild>
-            <button  className="px-8 py-3 text-base font-semibold rounded-full border-2 border-white text-white hover:bg-white/10 transition">
+            <button onClick={checkPlay}  className="px-8 py-3 text-base font-semibold rounded-full border-2 border-white text-white hover:bg-white/10 transition">
               <div> Play </div>
             </button>
             </AlertDialogTrigger>
@@ -49,7 +86,7 @@ function Hero() {
               <AlertDialogCancel>Cancel</AlertDialogCancel>
               </Link>
               <Link href={'/dash'}>
-              <AlertDialogAction>Continue</AlertDialogAction>
+              <AlertDialogAction onClick={handleProfileCreation}>Continue</AlertDialogAction>
               </Link>
         </AlertDialogFooter>
             </AlertDialogContent>
