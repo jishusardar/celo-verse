@@ -1,4 +1,6 @@
 "use client"
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
+import { Input } from '@/components/ui/input';
 import Image from 'next/image'
 import Link from 'next/link';
 import React from 'react'
@@ -29,9 +31,29 @@ function Hero() {
             Celo verse is a web3 gaming platform that leverages the Celo blockchain to offer players a unique gaming experience with integrated crypto rewards NFT.
           </p>
           <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
             <button  className="px-8 py-3 text-base font-semibold rounded-full border-2 border-white text-white hover:bg-white/10 transition">
-              {isConnected? (<div> <Link href={'/dash'}>Play</Link></div>):(<div>Connect Wallet and Play &gt;</div>)}
+              {isConnected? (<div> Play </div>):(<div>Connect Wallet and Play &gt;</div>)}
             </button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Entre Your User Name:</AlertDialogTitle>
+                <AlertDialogDescription>
+                  <Input type="name" placeholder="Example:souvik23"/>
+          </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+               <Link href={'/'}>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              </Link>
+              <Link href={'/dash'}>
+              <AlertDialogAction>Continue</AlertDialogAction>
+              </Link>
+        </AlertDialogFooter>
+            </AlertDialogContent>
+            </AlertDialog>
           </div>
         </div>
     </section>
