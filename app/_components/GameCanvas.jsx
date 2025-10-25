@@ -328,6 +328,7 @@ const GameCanvas = () => {
         ctx.fillRect(player.x * scaleX, player.y * scaleY, player.width * scaleX, player.height * scaleY);
 
         // Draw player name
+        player.name = userName
         ctx.fillStyle = 'white';
         ctx.font = `${12 * Math.min(scaleX, scaleY)}px Arial`;
         ctx.textAlign = 'center';

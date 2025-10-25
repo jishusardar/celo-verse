@@ -60,6 +60,24 @@ export async function setPlayerState(player_name,username) {
   return data;
 }
 
+// export async function read_player_state(player) {
+    
+//     const { data: profileData, error: findError } = await supabase
+//     .from("users")
+//     .select("*")
+//     .eq("player_name", walletAddress)
+//     .single();
+
+//     if (findError && findError.code !== "PGRST116") {
+//         console.error("Error checking player:", findError);
+//         throw new Error("Database check failed");
+//     }
+
+//     if (profileData) {
+//         return profileData;
+//     }
+// }
+
 //remove player state on disconnect
 export async function removePlayerState(userId) {
     const {error} = await supabase.from('player_state').delete().eq('user_id', userId);

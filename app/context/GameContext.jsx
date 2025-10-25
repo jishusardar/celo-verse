@@ -2,6 +2,10 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import {setPlayerState} from '../action'
+import { Providers } from '@/app/lib/Providers'
+import { useAccount } from 'wagmi';
+import { redirect } from 'next/navigation';
+import { existProfile } from '@/app/action';
 
 const GameContext = createContext(undefined);
 
@@ -18,6 +22,20 @@ export const GameProvider = ({ children, socket }) => {
   const [worldObjects, setWorldObjects] = useState([]);
   const [chatMessages, setChatMessages] = useState([]);
   const [currentPlayer, setCurrentPlayer] = useState(null);
+
+     const { address, isConnected } = useAccount();
+    const [userName, setUserName] = useState();
+
+    useEffect(() => {
+              if (!address) return;
+              async function loadUser() {
+                  const user = await existProfile(address);
+                  console.log(user);
+                  setUserName(user ? user.username : null);
+                  
+              }
+              loadUser();
+             },[address])
 
   useEffect(() => {
     if (!socket) return;
@@ -39,10 +57,11 @@ export const GameProvider = ({ children, socket }) => {
     });
 
     // Handle new player joining
-    socket.on('playerJoined', (player) => {
-      setPlayers(prev => {
+    socket.on('playerJoined',  (player,userName) => {
+      setPlayers((prev) => {
         const newMap = new Map(prev);
         newMap.set(player.id, player);
+        // await setPlayerState(player.id,userName)
         return newMap;
       });
     });
@@ -198,8 +217,10 @@ export const GameProvider = ({ children, socket }) => {
   };
 
   return (
+    <Providers >
     <GameContext.Provider value={value}>
       {children}
     </GameContext.Provider>
+    </Providers>
   );
 };
