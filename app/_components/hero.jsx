@@ -13,6 +13,7 @@ export let user_wallet_address ;
 function Hero() {
   const { address, isConnected } = useAccount();
   const [userName, setUserName] = useState();
+  const [inputUserName, setInputUserName] = useState('');
 
   useEffect(() => {
         if (!address) return;
@@ -36,14 +37,16 @@ function Hero() {
         if (!address) {
             alert('Connect wallet')
         }
-        if (!userName) {
+        if (!inputUserName.trim()) {
             alert('Enter user-name')
+            return;
         }
         try {
-            await existProfile(address);
-            await upsertUser(address,userName);
+            await upsertUser(address, inputUserName.trim());
+            setUserName(inputUserName.trim());
         } catch (error) {
-            throw error
+            console.error('Error creating profile:', error);
+            alert('Failed to create profile. Please try again.');
         }
     }
   return (
@@ -78,7 +81,12 @@ function Hero() {
               <AlertDialogHeader>
                 <AlertDialogTitle>Entre Your User Name:</AlertDialogTitle>
                 <AlertDialogDescription>
-                  <Input type="name" placeholder="Example:souvik23"/>
+                  <Input
+                    type="text"
+                    placeholder="Example: souvik23"
+                    value={inputUserName}
+                    onChange={(e) => setInputUserName(e.target.value)}
+                  />
           </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
