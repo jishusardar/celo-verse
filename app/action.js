@@ -34,7 +34,7 @@ export async function upsertUser(walletAddress, username) {
     }
 
     if (existing) {
-        alert('Profile already exist')
+        // alert('Profile already exist')
         return existing;
     }
 
