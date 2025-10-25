@@ -26,7 +26,12 @@ const GameCanvas = () => {
     tree: null,
     rock: null,
     home: null,
-    background: null
+    background: null,
+    // Character images
+    Adam: null,
+    Ash: null,
+    Lucy: null,
+    Nancy: null
   });
    const { address, isConnected } = useAccount();
       const [userName, setUserName] = useState();
@@ -48,7 +53,12 @@ const GameCanvas = () => {
       tree: '/sheets/tree2.png',      // Put your tree.png in public folder
       rock: '/sheets/rock1.png',
       home: '/sheets/home.png',
-      background: '/sheets/grass1.png'
+      background: '/sheets/grass1.png',
+      // Character images
+      Adam: '/character/Adam_login.png',
+      Ash: '/character/Ash_login.png',
+      Lucy: '/character/Lucy_login.png',
+      Nancy: '/character/Nancy_login.png'
     };
 
     
@@ -323,9 +333,23 @@ const GameCanvas = () => {
 
       // Draw players
       players.forEach(player => {
-        // Draw player body
-        ctx.fillStyle = player.color;
-        ctx.fillRect(player.x * scaleX, player.y * scaleY, player.width * scaleX, player.height * scaleY);
+        // Draw player character image
+        if (imagesLoaded && player.avatar?.character && imagesRef.current[player.avatar.character]) {
+          // Disable smoothing for pixel art
+          ctx.imageSmoothingEnabled = false;
+
+          ctx.drawImage(
+            imagesRef.current[player.avatar.character],
+            player.x * scaleX,
+            player.y * scaleY,
+            player.width * scaleX,
+            player.height * scaleY
+          );
+        } else {
+          // Fallback to colored rectangle if image not loaded
+          ctx.fillStyle = player.color;
+          ctx.fillRect(player.x * scaleX, player.y * scaleY, player.width * scaleX, player.height * scaleY);
+        }
 
         // Draw player name
         ctx.fillStyle = 'white';

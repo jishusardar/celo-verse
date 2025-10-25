@@ -10,7 +10,8 @@ const AvatarCustomization = ({ onClose }) => {
     body: currentPlayer?.avatar.body || 'default',
     hair: currentPlayer?.avatar.hair || 'default',
     clothes: currentPlayer?.avatar.clothes || 'default',
-    accessories: currentPlayer?.avatar.accessories || 'none'
+    accessories: currentPlayer?.avatar.accessories || 'none',
+    character: currentPlayer?.avatar.character || 'Adam'
   });
 
   const bodyOptions = [
@@ -44,6 +45,13 @@ const AvatarCustomization = ({ onClose }) => {
     { id: 'glasses', name: 'Glasses', icon: '👓' },
     { id: 'crown', name: 'Crown', icon: '👑' },
     { id: 'mask', name: 'Mask', icon: '🎭' }
+  ];
+
+  const characterOptions = [
+    { id: 'Adam', name: 'Adam', src: '/character/Adam_login.png' },
+    { id: 'Ash', name: 'Ash', src: '/character/Ash_login.png' },
+    { id: 'Lucy', name: 'Lucy', src: '/character/Lucy_login.png' },
+    { id: 'Nancy', name: 'Nancy', src: '/character/Nancy_login.png' }
   ];
 
   const handleSave = () => {
@@ -101,19 +109,27 @@ const AvatarCustomization = ({ onClose }) => {
         <h3 className="text-lg font-semibold mb-4 text-center">Preview</h3>
         <div className="flex justify-center">
           <div className="relative">
-            {/* Body */}
-            <div 
-              className="w-16 h-16 rounded-full border-2 border-gray-300"
+            {/* Character Image */}
+            {customization.character && (
+              <img
+                src={characterOptions.find(c => c.id === customization.character)?.src}
+                alt={customization.character}
+                className="w-16 h-16 rounded-full border-2 border-gray-300 object-cover"
+              />
+            )}
+            {/* Body (overlay for customization) */}
+            <div
+              className="absolute inset-0 w-16 h-16 rounded-full border-2 border-gray-300 opacity-50"
               style={{ backgroundColor: bodyOptions.find(b => b.id === customization.body)?.color }}
             />
             {/* Hair */}
-            <div 
-              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-12 h-8 rounded-t-full"
+            <div
+              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-12 h-8 rounded-t-full opacity-75"
               style={{ backgroundColor: hairOptions.find(h => h.id === customization.hair)?.color }}
             />
             {/* Clothes */}
-            <div 
-              className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-14 h-8 rounded-b-lg"
+            <div
+              className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-14 h-8 rounded-b-lg opacity-75"
               style={{ backgroundColor: clothesOptions.find(c => c.id === customization.clothes)?.color }}
             />
             {/* Accessories */}
@@ -166,6 +182,31 @@ const AvatarCustomization = ({ onClose }) => {
           </h3>
           <div className="grid grid-cols-5 gap-3">
             {accessoriesOptions.map(option => renderOption(option, 'accessories'))}
+          </div>
+        </div>
+
+        {/* Character Image */}
+        <div>
+          <h3 className="text-lg font-semibold mb-3">Character Image</h3>
+          <div className="grid grid-cols-2 gap-3">
+            {characterOptions.map(option => (
+              <button
+                key={option.id}
+                onClick={() => setCustomization(prev => ({ ...prev, character: option.id }))}
+                className={`p-3 rounded-lg border-2 transition-all ${
+                  customization.character === option.id
+                    ? 'border-blue-500 bg-blue-50'
+                    : 'border-gray-200 hover:border-gray-300'
+                }`}
+              >
+                <img
+                  src={option.src}
+                  alt={option.name}
+                  className="w-12 h-12 rounded-full mx-auto mb-2 object-cover"
+                />
+                <div className="text-sm font-medium">{option.name}</div>
+              </button>
+            ))}
           </div>
         </div>
       </div>
