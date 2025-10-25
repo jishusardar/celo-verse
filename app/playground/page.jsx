@@ -18,6 +18,7 @@ export default function Home() {
 
   useEffect(() => {
     const newSocket = io('http://localhost:3000');
+    setIsConnected(true);
     
     newSocket.on('connect', () => {
       console.log('Connected to server');

@@ -30,7 +30,7 @@ export function PlayDialog() {
             alt="thumbnail" />
         </CardItem>
         <div className="flex justify-center items-start mt-20">
-          <Link href={'/Game'}>
+          <Link href={'/playground'}>
           <HoverBorderGradient
         containerClassName="rounded-full"
         as="button" className="text-xl"
