@@ -15,7 +15,6 @@ function Header() {
           </div>
         </div>
         <ConnectButton />
-        
       </div>
     </header>
   )
