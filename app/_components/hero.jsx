@@ -79,14 +79,9 @@ function Hero() {
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Entre Your User Name:</AlertDialogTitle>
+                <AlertDialogTitle>Enter Your User Name:</AlertDialogTitle>
                 <AlertDialogDescription>
-                  <Input
-                    type="text"
-                    placeholder="Example: souvik23"
-                    value={inputUserName}
-                    onChange={(e) => setInputUserName(e.target.value)}
-                  />
+                  <Input type="name" placeholder="Example:souvik23"/>
           </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
