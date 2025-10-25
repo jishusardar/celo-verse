@@ -53,7 +53,7 @@ const GameCanvas = () => {
         socket.emit('playerMove', { deltaX, deltaY });
         setLastMoveTime(now);
       }
-    }, 16); // ~60fps
+    }, 8); // ~60fps
 
     return () => clearInterval(moveInterval);
   }, [socket, keys, currentPlayer, lastMoveTime]);
@@ -160,21 +160,29 @@ const GameCanvas = () => {
 
   return (
     <div className="relative">
-      <canvas
+      {/* <canvas
         ref={canvasRef}
         width={800}
         height={600}
         className="game-canvas cursor-pointer"
         onClick={handleCanvasClick}
-      />
+      /> */}
+      <canvas id="game"></canvas>
+        <div className="orientation" id="orientation">&#8634;</div>
+        <div className="mobile-block" id="mobile-control">
+            <div className="control" id="left">&#8592;</div>
+            <div className="control" id="up">&#8593;</div>
+            <div className="control" id="down">&#8595;</div>
+            <div className="control" id="right">&#8594;</div>
+        </div>
       
       {/* Instructions overlay */}
-      <div className="absolute top-4 left-4 bg-black bg-opacity-50 text-white p-3 rounded-lg text-sm">
+      {/* <div className="absolute top-4 left-4 bg-black bg-opacity-50 text-white p-3 rounded-lg text-sm">
         <div className="font-bold mb-2">Controls:</div>
         <div>WASD / Arrow Keys: Move</div>
         <div>Click chairs: Sit/Stand</div>
         <div>Enter: Chat</div>
-      </div>
+      </div> */}
 
       {/* Player count */}
       <div className="absolute top-4 right-4 bg-black bg-opacity-50 text-white p-3 rounded-lg text-sm">

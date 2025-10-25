@@ -10,6 +10,8 @@ import { io } from 'socket.io-client';
 
 import GameCanvas from '../_components/GameCanvas';
 import { GameProvider } from '../context/GameContext';
+import Game from '../_components/Game';
+
 
 export default function Home() {
   const [socket, setSocket] = useState(null);
@@ -72,7 +74,7 @@ export default function Home() {
         <div className="flex-1 flex">
           {/* Game Canvas */}
           <div className="flex-1 flex items-center justify-center p-4">
-            <GameCanvas />
+            <Game />
           </div>
 
           {/* Side Panels */}
