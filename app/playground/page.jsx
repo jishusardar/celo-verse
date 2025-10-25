@@ -4,17 +4,19 @@ import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 
 // import ChatPanel from '../components/ChatPanel';
-// import AvatarCustomization from '../components/AvatarCustomization';
-// import PlayerList from '../components/PlayerList';
+import AvatarCustomization from './_components/AvatarCustomization';
+import PlayerList from './_components/PlayerList';
 // import Web3Integration from '../components/Web3Integration';
 
 import GameCanvas from '../_components/GameCanvas';
 import { GameProvider } from '../context/GameContext';
+import ChatPanel from './_components/chatpanel';
 
 export default function Home() {
   const [socket, setSocket] = useState(null);
   const [isConnected, setIsConnected] = useState(false);
   const [showAvatarCustomization, setShowAvatarCustomization] = useState(false);
+  const [customiseOption, setCustomiseOption] = useState(false);
 
   useEffect(() => {
     const newSocket = io('http://localhost:3000');
@@ -39,7 +41,7 @@ export default function Home() {
 
   if (!socket) {
     return (
-      <div className="flex items-center justify-center h-screen bg-gradient-to-br from-blue-500 to-purple-600">
+      <div className="flex items-center justify-center h-screen bg-linear-to-br from-blue-500 to-purple-600">
         <div className="text-white text-xl">Connecting to server...</div>
       </div>
     );
@@ -76,21 +78,21 @@ export default function Home() {
           </div>
 
           {/* Side Panels */}
-          {/* <div className="w-80 bg-black bg-opacity-10 flex flex-col">
+          <div className="w-80 bg-black bg-opacity-10 flex flex-col">
             <PlayerList />
-            <Web3Integration />
+            {/* <Web3Integration /> */}
             <ChatPanel />
-          </div> */}
+          </div>
         </div>
 
-        {/* Avatar Customization Modal
+        {/* Avatar Customization Modal */}
         {showAvatarCustomization && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 overflow-scroll">
             <div className="avatar-customization max-w-md w-full mx-4">
               <AvatarCustomization onClose={() => setShowAvatarCustomization(false)} />
             </div>
           </div>
-        )} */}
+        )}
 
         {/* Instructions */}
         <div className="bg-black bg-opacity-20 text-white p-2 text-sm text-center">
