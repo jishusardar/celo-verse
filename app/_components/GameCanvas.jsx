@@ -2,6 +2,9 @@
 
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { useGameContext } from '../context/GameContext';
+import { useAccount } from 'wagmi';
+import { redirect } from 'next/navigation';
+import { existProfile } from '@/app/action';
 
 const GameCanvas = () => {
   const canvasRef = useRef(null);
@@ -25,6 +28,19 @@ const GameCanvas = () => {
     home: null,
     background: null
   });
+   const { address, isConnected } = useAccount();
+      const [userName, setUserName] = useState();
+  
+      useEffect(() => {
+                if (!address) return;
+                async function loadUser() {
+                    const user = await existProfile(address);
+                    console.log(user);
+                    setUserName(user ? user.username : null);
+                    
+                }
+                loadUser();
+               },[address])
 
   // ✨ NEW: Load all images
   useEffect(() => {
