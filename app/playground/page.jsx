@@ -75,7 +75,7 @@ export default function Home() {
         <div className="flex-1 flex flex-col lg:flex-row">
           {/* Game Canvas */}
           <div className="flex-1 flex items-center justify-center p-2 lg:p-4 min-h-0">
-            <Game />
+            <GameCanvas />
           </div>
 
           {/* Side Panels */}

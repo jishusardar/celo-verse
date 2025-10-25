@@ -1,11 +1,11 @@
 'use client';
 
 import { useEffect, useRef, useState, useCallback } from 'react';
-import { useGame } from '../context/GameContext';
+import { useGameContext } from '../context/GameContext';
 
 const GameCanvas = () => {
   const canvasRef = useRef(null);
-  const { socket, players, worldObjects, currentPlayer } = useGame();
+  const { socket, players, worldObjects, currentPlayer } = useGameContext();
   const [keys, setKeys] = useState(new Set());
   const [lastMoveTime, setLastMoveTime] = useState(0);
   const [canvasSize, setCanvasSize] = useState({ width: 800, height: 600 });
@@ -16,6 +16,54 @@ const GameCanvas = () => {
     left: false,
     right: false
   });
+
+  // ✨ NEW: Image loading state and refs
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+  const imagesRef = useRef({
+    tree: null,
+    rock: null,
+    home: null,
+    grass: null
+  });
+
+  // ✨ NEW: Load all images
+  useEffect(() => {
+    const imagesToLoad = {
+      tree: '/sheets/tree2.png',      // Put your tree.png in public folder
+      rock: '/sheets/rock1.png',
+      home: '/sheets/home.png',
+      grass: '/sheets/grass.png'
+    };
+
+    
+    let loadedCount = 0;
+    const totalImages = Object.keys(imagesToLoad).length;
+
+    Object.entries(imagesToLoad).forEach(([key, src]) => {
+      const img = new Image();
+      
+      img.onload = () => {
+        imagesRef.current[key] = img;
+        loadedCount++;
+        
+        if (loadedCount === totalImages) {
+          setImagesLoaded(true);
+          console.log('All images loaded successfully! 🎉');
+        }
+      };
+
+      img.onerror = () => {
+        console.error(`Failed to load ${key} from ${src}`);
+        loadedCount++;
+        
+        if (loadedCount === totalImages) {
+          setImagesLoaded(true);
+        }
+      };
+
+      img.src = src;
+    });
+  }, []);
 
   // Device detection and responsive sizing
   useEffect(() => {
@@ -129,34 +177,34 @@ const GameCanvas = () => {
   }, [socket, keys, touchControls, currentPlayer, lastMoveTime]);
 
   // Handle clicking/tapping on chairs
-  const handleCanvasClick = (e) => {
-    if (!socket || !currentPlayer) return;
+//   const handleCanvasClick = (e) => {
+//     if (!socket || !currentPlayer) return;
 
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+//     const canvas = canvasRef.current;
+//     if (!canvas) return;
 
-    const rect = canvas.getBoundingClientRect();
-    const scaleX = canvasSize.width / 800; // Scale factor for responsive canvas
-    const scaleY = canvasSize.height / 600;
+//     const rect = canvas.getBoundingClientRect();
+//     const scaleX = canvasSize.width / 800; // Scale factor for responsive canvas
+//     const scaleY = canvasSize.height / 600;
     
-    const x = (e.clientX - rect.left) / scaleX;
-    const y = (e.clientY - rect.top) / scaleY;
+//     const x = (e.clientX - rect.left) / scaleX;
+//     const y = (e.clientY - rect.top) / scaleY;
 
-    // Check if clicking on a chair
-    const clickedChair = worldObjects.find(obj => 
-      obj.type === 'chair' && 
-      x >= obj.x && x <= obj.x + obj.width &&
-      y >= obj.y && y <= obj.y + obj.height
-    );
+//     // Check if clicking on a chair
+//     const clickedChair = worldObjects.find(obj => 
+//       obj.type === 'chair' && 
+//       x >= obj.x && x <= obj.x + obj.width &&
+//       y >= obj.y && y <= obj.y + obj.height
+//     );
 
-    if (clickedChair) {
-      if (currentPlayer.isSitting) {
-        socket.emit('standUp');
-      } else {
-        socket.emit('trySit');
-      }
-    }
-  };
+//     if (clickedChair) {
+//       if (currentPlayer.isSitting) {
+//         socket.emit('standUp');
+//       } else {
+//         socket.emit('trySit');
+//       }
+//     }
+//   };
 
   // Render game
   useEffect(() => {
@@ -178,45 +226,100 @@ const GameCanvas = () => {
       const scaleX = canvasSize.width / 800;
       const scaleY = canvasSize.height / 600;
 
-      // Draw world objects
-      worldObjects.forEach(obj => {
-        ctx.fillStyle = getObjectColor(obj.type, obj.occupied);
-        ctx.fillRect(obj.x * scaleX, obj.y * scaleY, obj.width * scaleX, obj.height * scaleY);
+       worldObjects.forEach(obj => {
+        const x = obj.x * scaleX;
+        const y = obj.y * scaleY;
+        const width = obj.width * scaleX;
+        const height = obj.height * scaleY;
 
-        // Add visual details
-        if (obj.type === 'tree') {
-          // Draw tree trunk
-          ctx.fillStyle = '#8B4513';
-          ctx.fillRect(
-            (obj.x + obj.width/2 - 5) * scaleX, 
-            (obj.y + obj.height - 20) * scaleY, 
-            10 * scaleX, 
-            20 * scaleY
+        // If images are loaded, use them
+        if (imagesLoaded && imagesRef.current[obj.type]) {
+          // Disable smoothing for pixel art
+          ctx.imageSmoothingEnabled = false;
+          
+          ctx.drawImage(
+            imagesRef.current[obj.type],
+            x,
+            y,
+            width,
+            height
           );
-        } else if (obj.type === 'home') {
-          // Draw door
-          ctx.fillStyle = '#654321';
-          ctx.fillRect(
-            (obj.x + obj.width/2 - 8) * scaleX, 
-            (obj.y + obj.height - 30) * scaleY, 
-            16 * scaleX, 
-            30 * scaleY
-          );
-          // Draw windows
-          ctx.fillStyle = '#87CEEB';
-          ctx.fillRect((obj.x + 10) * scaleX, (obj.y + 20) * scaleY, 15 * scaleX, 15 * scaleY);
-          ctx.fillRect((obj.x + obj.width - 25) * scaleX, (obj.y + 20) * scaleY, 15 * scaleX, 15 * scaleY);
-        } else if (obj.type === 'chair') {
-          // Draw chair back
-          ctx.fillStyle = obj.occupied ? '#FF6347' : '#8B4513';
-          ctx.fillRect(
-            (obj.x + obj.width/2 - 2) * scaleX, 
-            (obj.y - 10) * scaleY, 
-            4 * scaleX, 
-            15 * scaleY
-          );
+        } else {
+          // Fallback to colored rectangles
+          ctx.fillStyle = getObjectColor(obj.type, obj.occupied);
+          ctx.fillRect(x, y, width, height);
+
+          // Add visual details for fallback
+          if (obj.type === 'tree') {
+            ctx.fillStyle = '#8B4513';
+            ctx.fillRect(
+              (obj.x + obj.width/2 - 5) * scaleX,
+              (obj.y + obj.height - 20) * scaleY,
+              10 * scaleX,
+              20 * scaleY
+            );
+          } else if (obj.type === 'home') {
+            ctx.fillStyle = '#654321';
+            ctx.fillRect(
+              (obj.x + obj.width/2 - 8) * scaleX,
+              (obj.y + obj.height - 30) * scaleY,
+              16 * scaleX,
+              30 * scaleY
+            );
+            ctx.fillStyle = '#87CEEB';
+            ctx.fillRect((obj.x + 10) * scaleX, (obj.y + 20) * scaleY, 15 * scaleX, 15 * scaleY);
+            ctx.fillRect((obj.x + obj.width - 25) * scaleX, (obj.y + 20) * scaleY, 15 * scaleX, 15 * scaleY);
+          } else if (obj.type === 'chair') {
+            ctx.fillStyle = obj.occupied ? '#FF6347' : '#8B4513';
+            ctx.fillRect(
+              (obj.x + obj.width/2 - 2) * scaleX,
+              (obj.y - 10) * scaleY,
+              4 * scaleX,
+              15 * scaleY
+            );
+          }
         }
       });
+
+      // Draw world objects
+    //   worldObjects.forEach(obj => {
+    //     ctx.fillStyle = getObjectColor(obj.type, obj.occupied);
+    //     ctx.fillRect(obj.x * scaleX, obj.y * scaleY, obj.width * scaleX, obj.height * scaleY);
+
+    //     // Add visual details
+    //     if (obj.type === 'tree') {
+    //       // Draw tree trunk
+    //       ctx.fillStyle = '#8B4513';
+    //       ctx.fillRect(
+    //         (obj.x + obj.width/2 - 5) * scaleX, 
+    //         (obj.y + obj.height - 20) * scaleY, 
+    //         10 * scaleX, 
+    //         20 * scaleY
+    //       );
+    //     } else if (obj.type === 'home') {
+    //       // Draw door
+    //       ctx.fillStyle = '#654321';
+    //       ctx.fillRect(
+    //         (obj.x + obj.width/2 - 8) * scaleX, 
+    //         (obj.y + obj.height - 30) * scaleY, 
+    //         16 * scaleX, 
+    //         30 * scaleY
+    //       );
+    //       // Draw windows
+    //       ctx.fillStyle = '#87CEEB';
+    //       ctx.fillRect((obj.x + 10) * scaleX, (obj.y + 20) * scaleY, 15 * scaleX, 15 * scaleY);
+    //       ctx.fillRect((obj.x + obj.width - 25) * scaleX, (obj.y + 20) * scaleY, 15 * scaleX, 15 * scaleY);
+    //     } else if (obj.type === 'chair') {
+    //       // Draw chair back
+    //       ctx.fillStyle = obj.occupied ? '#FF6347' : '#8B4513';
+    //       ctx.fillRect(
+    //         (obj.x + obj.width/2 - 2) * scaleX, 
+    //         (obj.y - 10) * scaleY, 
+    //         4 * scaleX, 
+    //         15 * scaleY
+    //       );
+    //     }
+    //   });
 
       // Draw players
       players.forEach(player => {
@@ -263,7 +366,7 @@ const GameCanvas = () => {
           width={canvasSize.width}
           height={canvasSize.height}
           className="game-canvas cursor-pointer border-2 border-gray-300 rounded-lg shadow-lg"
-          onClick={handleCanvasClick}
+          
           style={{
             maxWidth: '100%',
             maxHeight: '100%',

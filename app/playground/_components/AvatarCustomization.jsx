@@ -1,11 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { useGame } from '@/app/context/GameContext';
+import { useGameContext } from '@/app/context/GameContext';
 import { X, Palette, Shirt, Crown, Sparkles } from 'lucide-react';
 
 const AvatarCustomization = ({ onClose }) => {
-  const { socket, currentPlayer } = useGame();
+  const { socket, currentPlayer } = useGameContext();
   const [customization, setCustomization] = useState({
     body: currentPlayer?.avatar.body || 'default',
     hair: currentPlayer?.avatar.hair || 'default',

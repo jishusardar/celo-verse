@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { useGame } from '@/app/context/GameContext';
+import { useGameContext } from '@/app/context/GameContext';
 import { Send, MessageCircle } from 'lucide-react';
 
 const ChatPanel = () => {
-  const { socket, chatMessages } = useGame();
+  const { socket, chatMessages } = useGameContext();
   const [message, setMessage] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const messagesEndRef = useRef(null);

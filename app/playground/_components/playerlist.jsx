@@ -1,10 +1,10 @@
 'use client';
 
-import { useGame } from '@/app/context/GameContext';
+import { useGameContext } from '@/app/context/GameContext';
 import { Users, User } from 'lucide-react';
 
 const PlayerList = () => {
-  const { players, currentPlayer } = useGame();
+  const { players, currentPlayer } = useGameContext();
 
   return (
     <div className="bg-black bg-opacity-20 p-4">
