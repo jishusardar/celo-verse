@@ -23,7 +23,7 @@ const GameCanvas = () => {
     tree: null,
     rock: null,
     home: null,
-    grass: null
+    background: null
   });
 
   // ✨ NEW: Load all images
@@ -192,6 +192,7 @@ const GameCanvas = () => {
     const render = () => {
       // Clear canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
 
       // ✨ Draw background FIRST (before anything else)
     if (imagesLoaded && imagesRef.current.background) {
@@ -328,13 +329,13 @@ const GameCanvas = () => {
     };
 
     render();
-  }, [players, worldObjects, currentPlayer, canvasSize]);
+  }, [players, worldObjects, currentPlayer, canvasSize, imagesLoaded]);
 
   const getObjectColor = (type, occupied) => {
     switch (type) {
       case 'tree': return '#228B22';
       case 'home': return '#8B4513';
-      case 'rock': return '#D2691E';
+     
       case 'rock': return '#696969';
       default: return '#999';
     }
