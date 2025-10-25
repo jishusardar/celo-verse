@@ -2,7 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
-
+import { ArrowRightIcon } from "@radix-ui/react-icons"
+import { cn } from "@/lib/utils"
+import { AnimatedShinyText} from "@/components/ui/animated-shiny-text"
 // import ChatPanel from '../components/ChatPanel';
 import AvatarCustomization from './_components/AvatarCustomization';
 import PlayerList from './_components/PlayerList';
@@ -17,6 +19,21 @@ import { useAccount } from 'wagmi';
 import {existProfile} from '../action'
 
 export default function Home() {
+  useEffect(() => {
+  const handleKeyDown = (e) => {
+    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+      e.preventDefault();
+      return false;
+    }
+  };
+
+  // Add {passive: false} to make preventDefault work
+  window.addEventListener('keydown', handleKeyDown, { passive: false });
+
+  return () => {
+    window.removeEventListener('keydown', handleKeyDown, { passive: false });
+  };
+}, []);
   const [socket, setSocket] = useState(null);
   const [isConnectedBro, setIsConnectedBro] = useState(false);
   const [showAvatarCustomization, setShowAvatarCustomization] = useState(false);
@@ -58,9 +75,18 @@ export default function Home() {
 
   if (!socket) {
     return (
-      <div className="flex items-center justify-center h-screen bg-linear-to-br from-blue-500 to-purple-600">
-        <div className="text-white text-xl">Connecting to server...</div>
+      <div className="z-10 flex min-h-64 items-center justify-center">
+      <div
+        className={cn(
+          "group rounded-full border border-black/5 bg-neutral-100 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 dark:border-white/5 dark:bg-neutral-900 dark:hover:bg-neutral-800"
+        )}
+      >
+        <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">
+          <span>✨ Connecting You To The Celoverse</span>
+          <ArrowRightIcon className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
+        </AnimatedShinyText>
       </div>
+    </div>
     );
   }
 

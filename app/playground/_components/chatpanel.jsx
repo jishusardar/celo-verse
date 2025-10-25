@@ -5,6 +5,7 @@ import { useGameContext } from '@/app/context/GameContext';
 import { Send, MessageCircle } from 'lucide-react';
 
 const ChatPanel = () => {
+  const { players, currentPlayer } = useGameContext();
   const { socket, chatMessages } = useGameContext();
   const [message, setMessage] = useState('');
   const [isOpen, setIsOpen] = useState(false);

@@ -2,6 +2,7 @@ import { Geist, Geist_Mono,Jersey_10,Jersey_10} from "next/font/google";
 import "./globals.css";
 import {Providers} from './lib/Providers'
 import { Variable } from "lucide-react";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,6 +27,7 @@ export default function RootLayout({ children }) {
       >
         <Providers >
           {children}
+          <Toaster />
         </Providers>
       </body>
     </html>

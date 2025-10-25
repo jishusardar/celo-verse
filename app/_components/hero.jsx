@@ -7,6 +7,7 @@ import React,{useState,useEffect} from 'react'
 import { useAccount } from 'wagmi';
 import { existProfile,upsertUser } from '../action';
 import { redirect } from 'next/navigation';
+import { toast } from 'sonner';
 
 export let user_wallet_address ;
 
@@ -35,18 +36,17 @@ function Hero() {
 
   async function handleProfileCreation(){
         if (!address) {
-            alert('Connect wallet')
+             toast.warning('Connect wallet')
         }
         if (!inputUserName.trim()) {
-            alert('Enter user-name')
-            return;
+             toast.warning('Enter user-name')
         }
         try {
             await upsertUser(address, inputUserName.trim());
             setUserName(inputUserName.trim());
         } catch (error) {
             console.error('Error creating profile:', error);
-            alert('Failed to create profile. Please try again.');
+            toast.error('Failed to create profile. Please try again.');
         }
     }
   return (
