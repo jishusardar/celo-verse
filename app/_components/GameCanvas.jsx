@@ -32,7 +32,7 @@ const GameCanvas = () => {
       tree: '/sheets/tree2.png',      // Put your tree.png in public folder
       rock: '/sheets/rock1.png',
       home: '/sheets/home.png',
-      grass: '/sheets/grass.png'
+      background: '/sheets/grass1.png'
     };
 
     
@@ -176,35 +176,6 @@ const GameCanvas = () => {
     return () => clearInterval(moveInterval);
   }, [socket, keys, touchControls, currentPlayer, lastMoveTime]);
 
-  // Handle clicking/tapping on chairs
-//   const handleCanvasClick = (e) => {
-//     if (!socket || !currentPlayer) return;
-
-//     const canvas = canvasRef.current;
-//     if (!canvas) return;
-
-//     const rect = canvas.getBoundingClientRect();
-//     const scaleX = canvasSize.width / 800; // Scale factor for responsive canvas
-//     const scaleY = canvasSize.height / 600;
-    
-//     const x = (e.clientX - rect.left) / scaleX;
-//     const y = (e.clientY - rect.top) / scaleY;
-
-//     // Check if clicking on a chair
-//     const clickedChair = worldObjects.find(obj => 
-//       obj.type === 'chair' && 
-//       x >= obj.x && x <= obj.x + obj.width &&
-//       y >= obj.y && y <= obj.y + obj.height
-//     );
-
-//     if (clickedChair) {
-//       if (currentPlayer.isSitting) {
-//         socket.emit('standUp');
-//       } else {
-//         socket.emit('trySit');
-//       }
-//     }
-//   };
 
   // Render game
   useEffect(() => {
@@ -221,6 +192,18 @@ const GameCanvas = () => {
     const render = () => {
       // Clear canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // ✨ Draw background FIRST (before anything else)
+    if (imagesLoaded && imagesRef.current.background) {
+      ctx.imageSmoothingEnabled = false;
+
+      ctx.drawImage(
+        imagesRef.current.background,
+        0, 0,
+        canvas.width, 
+        canvas.height
+      );
+    }
 
       // Calculate scaling factors
       const scaleX = canvasSize.width / 800;
@@ -250,36 +233,36 @@ const GameCanvas = () => {
           ctx.fillRect(x, y, width, height);
 
           // Add visual details for fallback
-          if (obj.type === 'tree') {
-            ctx.fillStyle = '#8B4513';
-            ctx.fillRect(
-              (obj.x + obj.width/2 - 5) * scaleX,
-              (obj.y + obj.height - 20) * scaleY,
-              10 * scaleX,
-              20 * scaleY
-            );
-          } else if (obj.type === 'home') {
-            ctx.fillStyle = '#654321';
-            ctx.fillRect(
-              (obj.x + obj.width/2 - 8) * scaleX,
-              (obj.y + obj.height - 30) * scaleY,
-              16 * scaleX,
-              30 * scaleY
-            );
-            ctx.fillStyle = '#87CEEB';
-            ctx.fillRect((obj.x + 10) * scaleX, (obj.y + 20) * scaleY, 15 * scaleX, 15 * scaleY);
-            ctx.fillRect((obj.x + obj.width - 25) * scaleX, (obj.y + 20) * scaleY, 15 * scaleX, 15 * scaleY);
-          } else if (obj.type === 'chair') {
-            ctx.fillStyle = obj.occupied ? '#FF6347' : '#8B4513';
-            ctx.fillRect(
-              (obj.x + obj.width/2 - 2) * scaleX,
-              (obj.y - 10) * scaleY,
-              4 * scaleX,
-              15 * scaleY
-            );
-          }
-        }
-      });
+    //       if (obj.type === 'tree') {
+    //         ctx.fillStyle = '#8B4513';
+    //         ctx.fillRect(
+    //           (obj.x + obj.width/2 - 5) * scaleX,
+    //           (obj.y + obj.height - 20) * scaleY,
+    //           10 * scaleX,
+    //           20 * scaleY
+    //         );
+    //       } else if (obj.type === 'home') {
+    //         ctx.fillStyle = '#654321';
+    //         ctx.fillRect(
+    //           (obj.x + obj.width/2 - 8) * scaleX,
+    //           (obj.y + obj.height - 30) * scaleY,
+    //           16 * scaleX,
+    //           30 * scaleY
+    //         );
+    //         ctx.fillStyle = '#87CEEB';
+    //         ctx.fillRect((obj.x + 10) * scaleX, (obj.y + 20) * scaleY, 15 * scaleX, 15 * scaleY);
+    //         ctx.fillRect((obj.x + obj.width - 25) * scaleX, (obj.y + 20) * scaleY, 15 * scaleX, 15 * scaleY);
+    //       } else if (obj.type === 'rock') {
+    //         ctx.fillStyle = '#8B4513';
+    //         ctx.fillRect(
+    //           (obj.x + obj.width/2 - 2) * scaleX,
+    //           (obj.y - 10) * scaleY,
+    //           4 * scaleX,
+    //           15 * scaleY
+    //         );
+    //       }
+    }
+     });
 
       // Draw world objects
     //   worldObjects.forEach(obj => {
@@ -351,8 +334,8 @@ const GameCanvas = () => {
     switch (type) {
       case 'tree': return '#228B22';
       case 'home': return '#8B4513';
-      case 'chair': return occupied ? '#FF6347' : '#D2691E';
-      case 'obstacle': return '#696969';
+      case 'rock': return '#D2691E';
+      case 'rock': return '#696969';
       default: return '#999';
     }
   };
