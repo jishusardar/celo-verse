@@ -1,6 +1,6 @@
 
 # 🎮Celoverse
-Celo Verse is a Web3 Metaverse Community Only for the Celo Blockchain, where Users Can Explore, Interact, and Take Community X^n and n ranges 1<n<=INT_MAX
+Celo Verse is a Web3 Metaverse Community Only for the Celo Blockchain, where Users Can Explore, Interact and Grow.
 
 
 
@@ -24,18 +24,19 @@ Celo Verse is a Web3 Metaverse Community Only for the Celo Blockchain, where Use
 ### 🔐Blockchain Integration
 - Celo blockchain fast and safe.
 - Smart Contract intigrated which is transparent.
+- ![image](https://github.com/jishusardar/celo-verse/blob/main/public/Demo/web3integration.png) 
 
 ### 🎥 Live Video calling
 - Live video call can be done by user with other users online.
 - Voice enable calling.
 - Secure and transparent.
-![image](https://dev-to-uploads.s3.amazonaws.com/uploads/
-) 
+![image](https://github.com/jishusardar/celo-verse/blob/main/public/Demo/videoandaudio.png)
+
 ### 📲 Live Chating calling
 - Live Chating can be done by user with other users online.
 - Secure and transparent.
-![image](https://dev-to-uploads.s3.amazonaws.com/uploads/
-) 
+![image](https://github.com/jishusardar/celo-verse/blob/main/public/Demo/videoandaudio.png)
+
 ## 🎯 System
 ### How it Works
  1. **User Join:** User Connect there wallet to celo blockchain.
@@ -43,18 +44,29 @@ Celo Verse is a Web3 Metaverse Community Only for the Celo Blockchain, where Use
  3. **Chating :** Chat with strangers.
  4. **Video call :** Initiate Videocall if both allowed.`
  5. **Game :** Open world they can explore with friends.
+    
 ### Resolution Features
 - ✅ Community on celo that may connect developers over world.
 - ✅ Secured by bloackchian and smart conract.
+
 ## 📋 Contract Information
-- **Network** : Celo
+- **Network** : Celo Mainnet
+- **description**: THE Production Celo Network
+- **chain ID**: 42220
+- **Currency Symbol**:CELO
+- **Smart Contract Adderess**:0xD03E83f260FBA8c3118B856F315eD4E38C2B3522
+  
 ## ⏬ Deployment
- - Th
+ - git clone https://github.com/jishusardar/celo-verse
+ - cd celo-verse
+ - npm -i
+ - node server.js
+ - check https://localhost:3000
 
 ## 🎯Roadmap & Future Plans
 
 ### 🎮Gamming 
-- More ineresting games can be made over the chian due to websocket intigration.
+- More interesting games can be made over the chian due to websocket intigration.
 - Also can build some mini games like ludo, Uno, Chess etc.
 
 ### ⚙️Technical Improvements 
