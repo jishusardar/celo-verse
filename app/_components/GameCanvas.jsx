@@ -6,6 +6,7 @@ import { useAccount } from 'wagmi';
 import { redirect } from 'next/navigation';
 import { existProfile } from '@/app/action';
 
+
 const GameCanvas = () => {
   const canvasRef = useRef(null);
   const { socket, players, worldObjects, currentPlayer } = useGameContext();
@@ -19,6 +20,7 @@ const GameCanvas = () => {
     left: false,
     right: false
   });
+
 
   // ✨ NEW: Image loading state and refs
   const [imagesLoaded, setImagesLoaded] = useState(false);
@@ -37,6 +39,9 @@ const GameCanvas = () => {
   
    const { address, isConnected } = useAccount();
       const [userName, setUserName] = useState();
+      
+
+ 
   
       useEffect(() => {
                 if (!address) return;

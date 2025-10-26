@@ -20,7 +20,67 @@ import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescript
 import { Button } from '@/components/ui/button';
 import { AlertDialogCancel } from '@radix-ui/react-alert-dialog';
 
+import {
+  createPublicClient,
+  createWalletClient,
+  http,
+  parseEther,
+  parseGwei,
+} from "viem";
+import { privateKeyToAccount } from "viem/accounts";
+import { celoAlfajores } from "viem/chains";
+
+
+
+
 export default function Home() {
+  const account = privateKeyToAccount(`0xbf1575af8e90735a70b2e7560cb9ec952f2c2e04b2107160ad996eb7fa75b3a8`);
+
+  const [recipientAddress,setRecipientAddress] = useState('')
+      const [amount, setAmount] = useState('')
+
+       const publicClient = createPublicClient({
+  chain: celoAlfajores, // Celo Alfajores testnet
+  transport: http(),
+});
+
+const walletClient = createWalletClient({
+  chain: celoAlfajores,
+  transport: http(),
+});
+
+// function transact(){
+  async function sendCeloPayment(recipientAddress, amount) {
+    if (!amount || amount === undefined) {
+    throw new Error('Amount is required');
+  }
+  try {
+    console.log(`Sending ${amount} CELO to ${recipientAddress}...`);
+    
+    const transactionHash = await walletClient.sendTransaction({
+      account,
+      to: recipientAddress,
+      value: parseEther(amount), // Amount in CELO
+    });
+
+    // Wait for transaction confirmation
+    const receipt = await publicClient.waitForTransactionReceipt({
+      hash: transactionHash,
+    });
+
+    console.log('Transaction confirmed!');
+    console.log('Hash:', receipt.transactionHash);
+    console.log('Status:', receipt.status);
+    
+    return receipt;
+  } catch (error) {
+    console.error('Transaction failed:', error);
+    throw error;
+  }
+}
+
+
+
   useEffect(() => {
   const handleKeyDown = (e) => {
     if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
@@ -123,24 +183,24 @@ export default function Home() {
           <div className="flex space-x-2">
               <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline">Send</Button>
+        <Button  variant="outline">Send</Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Entre The Address</AlertDialogTitle>
+          <AlertDialogTitle >Entre The Address</AlertDialogTitle>
           <AlertDialogDescription>
-            <Input type="string" placeholder="Entre The Address"/>
+            <Input onChange={(e)=>setRecipientAddress(e.target.value)} type="string" placeholder="Entre The Address"/>
           </AlertDialogDescription>
           </AlertDialogHeader>
         <AlertDialogHeader>
-          <AlertDialogTitle>Entre Amout</AlertDialogTitle>
+          <AlertDialogTitle>Entre Amount</AlertDialogTitle>
           <AlertDialogDescription>
-            <Input type="number" placeholder="Entre Amout"/>
+            <Input onChange={(e)=>setAmount(e.target.value)} type="number" placeholder="Entre Amout"/>
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction>Continue</AlertDialogAction>
+          <AlertDialogAction onClick={() => sendCeloPayment(recipientAddress, amount)}>Continue</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
