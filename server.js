@@ -38,11 +38,30 @@ app.prepare().then(() => {
     { id: 'tree1', type: 'tree', x: 100, y: 100, width: 40, height: 60 },
     { id: 'tree2', type: 'tree', x: 300, y: 200, width: 40, height: 60 },
     { id: 'home1', type: 'home', x: 500, y: 150, width: 80, height: 100 },
-    { id: 'chair1', type: 'chair', x: 200, y: 300, width: 30, height: 30, occupied: false },
-    { id: 'chair2', type: 'chair', x: 400, y: 350, width: 30, height: 30, occupied: false },
     { id: 'obstacle1', type: 'rock', x: 150, y: 400, width: 50, height: 50 },
     { id: 'obstacle2', type: 'rock', x: 600, y: 300, width: 40, height: 40 },
     { id: 'rock1', type: 'rock', x: 50, y: 50, width: 30, height: 30 },
+
+    { id: 'tree1', type: 'tree', x: 120,y: 120, width: 40, height: 60 },
+    { id: 'tree2', type: 'tree', x: 670, y: 378, width: 40, height: 60 },
+    { id: 'home1', type: 'home', x: 700, y: 50, width: 80, height: 100 },
+    { id: 'obstacle1', type: 'rock', x: 487, y: 36, width: 50, height: 50 },
+    { id: 'obstacle2', type: 'rock', x: 674, y: 34, width: 40, height: 40 },
+    { id: 'rock1', type: 'rock', x: 87, y: 738, width: 30, height: 30 },
+
+    { id: 'tree1', type: 'tree', x: 346, y: 56, width: 40, height: 60 },
+    { id: 'tree2', type: 'tree', x: 85, y: 690, width: 40, height: 60 },
+    { id: 'home1', type: 'home', x: 356, y: 126, width: 80, height: 100 },
+    { id: 'obstacle1', type: 'rock', x: 6, y: 496, width: 50, height: 50 },
+    { id: 'obstacle2', type: 'rock', x: 35, y: 563, width: 40, height: 40 },
+    { id: 'rock1', type: 'rock', x: 356, y: 79, width: 30, height: 30 },
+
+    { id: 'tree1', type: 'tree', x: 352, y: 587, width: 40, height: 60 },
+    { id: 'tree2', type: 'tree', x: 469, y: 246, width: 40, height: 60 },
+    { id: 'home1', type: 'home', x: 234, y: 399, width: 80, height: 100 },
+    { id: 'obstacle1', type: 'rock', x: 356, y: 486, width: 50, height: 50 },
+    { id: 'obstacle2', type: 'rock', x: 335, y: 288, width: 40, height: 40 },
+    { id: 'rock1', type: 'rock', x: 47, y: 48, width: 30, height: 30 },
   ];
 
   // Collision detection function
