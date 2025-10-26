@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# 🎮Celoverse
+A celo blockchain-based 
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+[![MIT License](https://img.shields.io/badge/Celo-Metaverse-green.svg)](https://choosealicense.com/licenses/mit/)[![GPLv3 License](https://img.shields.io/badge/Node.js-Solidity-red.svg)](https://opensource.org/licenses/)[![AGPL License](https://img.shields.io/badge/Contract-Celoverse-blue.svg)](http://www.gnu.org/licenses/agpl-3.0)[![AGPL License](https://img.shields.io/badge/Blockchain-Celoverse-pink.svg)](http://www.gnu.org/licenses/agpl-3.0)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+![Logo](https://dev-to-uploads.s3.amazonaws.com/uploads/
+) 
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# 🤖Features
 
-## Deploy on Vercel
+### 🌏 Multiplayer at one 
+- Players Can Join using any wallet using celo chain.
+- Fullscreen mode.
+- Cross chating with each other.
+- Can creat customize avatar.
+![image](
+) 
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 🔐Blockchain Integration
+- Celo blockchain fast and safe.
+- Smart Contract intigrated which is transparent.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 🎥 Live Video calling
+- Live video call can be done by user with other users online.
+- Voice enable calling.
+- Secure and transparent.
+![image](https://dev-to-uploads.s3.amazonaws.com/uploads/
+) 
+### 📲 Live Chating calling
+- Live Chating can be done by user with other users online.
+- Secure and transparent.
+![image](https://dev-to-uploads.s3.amazonaws.com/uploads/
+) 
+## 🎯 System
+### How it Works
+ 1. **User Join:** User Connect there wallet to celo blockchain.
+ 2. **Avatr :** User can make their avatar.
+ 3. **Chating :** Chat with strangers.
+ 4. **Video call :** Initiate Videocall if both allowed.`
+ 5. **Game :** Open world they can explore with friends.
+### Resolution Features
+- ✅ Community on celo that may connect developers over world.
+- ✅ Secured by bloackchian and smart conract.
+## 📋 Contract Information
+- **Network** : Celo
+## ⏬ Deployment
+ - Th
+
+## 🎯Roadmap & Future Plans
+
+### 🎮Gamming 
+- More ineresting games can be made over the chian due to websocket intigration.
+- Also can build some mini games like ludo, Uno, Chess etc.
+
+### ⚙️Technical Improvements 
+ - Add some feature so that user need to pay some fees to get unlimited chating or videocall.
+ - Players can build their house or make mini workspace with friends.
+ - workspace like envirionment willbe provided for developers.
+ - Ai powered bots that can play with humans in game also can chat 
