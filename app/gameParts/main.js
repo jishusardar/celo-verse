@@ -16,8 +16,6 @@ import {
   overlap,
   tweenElement,
   cellAvailable,
-  isMobile,
-  setMobileSize
 } from './helpers';
 import {
   textGenFull,
