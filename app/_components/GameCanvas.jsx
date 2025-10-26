@@ -6,6 +6,36 @@ import { useAccount } from 'wagmi';
 import { redirect } from 'next/navigation';
 import { existProfile } from '@/app/action';
 
+import {
+  level,
+  menuMap,
+  playerSprite,
+  mapSprites,
+  logo,
+  font,
+  introText,
+  outroText
+} from '../gameParts/const'
+import {
+  timestamp,
+  overlap,
+  tweenElement,
+  cellAvailable
+} from '../gameParts/helpers';
+import {
+  textGenFull,
+  textGenPart,
+  timerTextGen
+} from '../gameParts/text';
+
+import Animation from '../gameParts/animation';
+import Tileset from '../gameParts/tileset';
+import Player from '../gameParts/player';
+import Map from '../gameParts/map';
+import Entity from '../gameParts/entity';
+import Timer from '../gameParts/timer';
+import Sound from '../gameParts/sound';
+
 const GameCanvas = () => {
   const canvasRef = useRef(null);
   const { socket, players, worldObjects, currentPlayer } = useGameContext();
@@ -215,10 +245,129 @@ const GameCanvas = () => {
     canvas.width = canvasSize.width;
     canvas.height = canvasSize.height;
 
+var spriteTiles = new Tileset(playerSprite, 16, 16, 3, ctx);
+var newMapSet = new Tileset(mapSprites, 8, 8, 49, ctx);
+var map = new Map(ground, newMapSet);
+var logoTile = new Tileset(logo, 16, 16, 3, ctx);
+var fontTile = new Tileset(font, 8, 8, 39, ctx);
+var soundHandler = new Sound();
+var walkSpeed = 100;
+
+var spriteDownAnim = new Animation(spriteTiles, ['1,2', '0,2', '2,2'], walkSpeed);
+var spriteLeftAnim = new Animation(spriteTiles, ['0,0', '1,0', '2,0'], walkSpeed);
+var spriteRightAnim = new Animation(spriteTiles, ['0,3', '1,3', '2,3'], walkSpeed);
+var spriteUpAnim = new Animation(spriteTiles, ['0,1', '1,1', '2,1'], walkSpeed);
+var keysDown = {};
+
+var ground = [],
+  collision = [],
+  objects = {},
+  player = {},
+  entities = [],
+  game = {},
+  timer = {};
+
+var introTs = 0,
+  introCount = 0,
+  outroTs = 0,
+  outroCount = 0;
+
+function startGame() {
+soundHandler.play(100);
+  ground = level.layers[0].data;
+  collision = Array.from(level.layers[1].data);
+  objects = level.layers[2].objects;
+
+   entities = [];
+
+    setupObjects();
+
+      // Initialize map after ground is defined
+     map = new Map(ground, newMapSet);
+
+     game = {
+        images: 0,
+        imagesLoaded: 0,
+        backgroundColor: '#000',
+        viewport: {
+          x: 513,
+          y: 1024
+        },
+        currentMap: map,
+        fps: 0,
+        lastfps: 0,
+        fpsTimer: 0,
+        message: null,
+        tooltip: null,
+        state: 'menu'
+      };
+
+      introTs = 0;
+      introCount = 0;
+      outroTs = 0;
+      outroCount = 0;
+
+  players.forEach(player => {
+    // player = new Player({
+    //       'left': spriteLeftAnim,
+    //       'right': spriteRightAnim,
+    //       'down': spriteDownAnim,
+    //       'up': spriteUpAnim,
+    //     },
+    //     'down', 626, 1141, 30, 30, walkSpeed);
+
+        // Draw player character image
+        if (imagesLoaded && player.avatar?.character && imagesRef.current[player.avatar.character]) {
+          // Disable smoothing for pixel art
+          ctx.imageSmoothingEnabled = false;
+
+          ctx.drawImage(
+            imagesRef.current[player.avatar.character],
+            player.x * scaleX,
+            player.y * scaleY,
+            player.width * scaleX,
+            player.height * scaleY
+          );
+        } else {
+          // Fallback to colored rectangle if image not loaded
+          ctx.fillStyle = player.color;
+          ctx.fillRect(player.x * scaleX, player.y * scaleY, player.width * scaleX, player.height * scaleY);
+        }
+
+        // Draw player name
+        player.name = userName
+        ctx.fillStyle = 'white';
+        ctx.font = `${12 * Math.min(scaleX, scaleY)}px Arial`;
+        ctx.textAlign = 'center';
+        ctx.fillText(player.name, (player.x + player.width/2) * scaleX, (player.y - 5) * scaleY);
+
+
+        ctx.drawImage(
+        sprite.stateAnimations[sprite.currentState].tileset.image,
+        sprite.stateAnimations[sprite.currentState].frames[sprite.stateAnimations[sprite.currentState].currentFrame].split(',')[0] * 16,
+        sprite.stateAnimations[sprite.currentState].frames[sprite.stateAnimations[sprite.currentState].currentFrame].split(',')[1] * 16,
+        16,
+        16,
+        Math.round(dX),
+        Math.round(dY),
+        30,
+        30);
+
+        // Draw sitting indicator
+        if (player.isSitting) {
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+          ctx.font = `${10 * Math.min(scaleX, scaleY)}px Arial`;
+          ctx.fillText('💺', (player.x + player.width/2) * scaleX, (player.y - 15) * scaleY);
+        }
+      });
+
+}
+
     const render = () => {
       // Clear canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
+
+  
 
       // ✨ Draw background FIRST (before anything else)
     if (imagesLoaded && imagesRef.current.background) {
@@ -260,76 +409,12 @@ const GameCanvas = () => {
           ctx.fillRect(x, y, width, height);
 
           // Add visual details for fallback
-    //       if (obj.type === 'tree') {
-    //         ctx.fillStyle = '#8B4513';
-    //         ctx.fillRect(
-    //           (obj.x + obj.width/2 - 5) * scaleX,
-    //           (obj.y + obj.height - 20) * scaleY,
-    //           10 * scaleX,
-    //           20 * scaleY
-    //         );
-    //       } else if (obj.type === 'home') {
-    //         ctx.fillStyle = '#654321';
-    //         ctx.fillRect(
-    //           (obj.x + obj.width/2 - 8) * scaleX,
-    //           (obj.y + obj.height - 30) * scaleY,
-    //           16 * scaleX,
-    //           30 * scaleY
-    //         );
-    //         ctx.fillStyle = '#87CEEB';
-    //         ctx.fillRect((obj.x + 10) * scaleX, (obj.y + 20) * scaleY, 15 * scaleX, 15 * scaleY);
-    //         ctx.fillRect((obj.x + obj.width - 25) * scaleX, (obj.y + 20) * scaleY, 15 * scaleX, 15 * scaleY);
-    //       } else if (obj.type === 'rock') {
-    //         ctx.fillStyle = '#8B4513';
-    //         ctx.fillRect(
-    //           (obj.x + obj.width/2 - 2) * scaleX,
-    //           (obj.y - 10) * scaleY,
-    //           4 * scaleX,
-    //           15 * scaleY
-    //         );
-    //       }
+    
     }
      });
 
       // Draw world objects
-    //   worldObjects.forEach(obj => {
-    //     ctx.fillStyle = getObjectColor(obj.type, obj.occupied);
-    //     ctx.fillRect(obj.x * scaleX, obj.y * scaleY, obj.width * scaleX, obj.height * scaleY);
-
-    //     // Add visual details
-    //     if (obj.type === 'tree') {
-    //       // Draw tree trunk
-    //       ctx.fillStyle = '#8B4513';
-    //       ctx.fillRect(
-    //         (obj.x + obj.width/2 - 5) * scaleX, 
-    //         (obj.y + obj.height - 20) * scaleY, 
-    //         10 * scaleX, 
-    //         20 * scaleY
-    //       );
-    //     } else if (obj.type === 'home') {
-    //       // Draw door
-    //       ctx.fillStyle = '#654321';
-    //       ctx.fillRect(
-    //         (obj.x + obj.width/2 - 8) * scaleX, 
-    //         (obj.y + obj.height - 30) * scaleY, 
-    //         16 * scaleX, 
-    //         30 * scaleY
-    //       );
-    //       // Draw windows
-    //       ctx.fillStyle = '#87CEEB';
-    //       ctx.fillRect((obj.x + 10) * scaleX, (obj.y + 20) * scaleY, 15 * scaleX, 15 * scaleY);
-    //       ctx.fillRect((obj.x + obj.width - 25) * scaleX, (obj.y + 20) * scaleY, 15 * scaleX, 15 * scaleY);
-    //     } else if (obj.type === 'chair') {
-    //       // Draw chair back
-    //       ctx.fillStyle = obj.occupied ? '#FF6347' : '#8B4513';
-    //       ctx.fillRect(
-    //         (obj.x + obj.width/2 - 2) * scaleX, 
-    //         (obj.y - 10) * scaleY, 
-    //         4 * scaleX, 
-    //         15 * scaleY
-    //       );
-    //     }
-    //   });
+   
 
       // Draw players
       players.forEach(player => {
