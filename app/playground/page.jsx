@@ -10,10 +10,10 @@ import AvatarCustomization from './_components/AvatarCustomization';
 import PlayerList from './_components/PlayerList';
 // import Web3Integration from '../components/Web3Integration';
 
-import GameCanvas from '../_components/GameCanvas';
+// import GameCanvas from '../_components/GameCanvas';
 import { GameProvider } from '../context/GameContext';
 import ChatPanel from './_components/chatpanel';
-import Game from '../_components/Game';
+import GameCanvas from '../_components/Game';
 import { Providers } from '../lib/Providers';
 import { useAccount } from 'wagmi';
 import {existProfile} from '../action'

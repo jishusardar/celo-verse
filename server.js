@@ -34,16 +34,373 @@ app.prepare().then(() => {
 
   // Game state
   const players = new Map();
-  const worldObjects = [
-    { id: 'tree1', type: 'tree', x: 100, y: 100, width: 40, height: 60 },
-    { id: 'tree2', type: 'tree', x: 300, y: 200, width: 40, height: 60 },
-    { id: 'home1', type: 'home', x: 500, y: 150, width: 80, height: 100 },
-    { id: 'chair1', type: 'chair', x: 200, y: 300, width: 30, height: 30, occupied: false },
-    { id: 'chair2', type: 'chair', x: 400, y: 350, width: 30, height: 30, occupied: false },
-    { id: 'obstacle1', type: 'obstacle', x: 150, y: 400, width: 50, height: 50 },
-    { id: 'obstacle2', type: 'obstacle', x: 600, y: 300, width: 40, height: 40 },
-    { id: 'rock1', type: 'obstacle', x: 50, y: 50, width: 30, height: 30 },
-  ];
+  const worldObjects = [{
+          "gid": 41,
+          "properties": {
+            "key_id": "0"
+          },
+          "x": 168.068723520391,
+          "y": 304.210537259897
+        },
+        {
+          "gid": 41,
+          "properties": {
+            "key_id": "1",
+            "message": "forest open"
+          },
+          "x": 271.907779481714,
+          "y": 272.11010318925
+        },
+        {
+          "gid": 43,
+          "properties": {
+            "cX": 23,
+            "cY": 35,
+            "key_id": "0"
+          },
+          "x": 183.963926729017,
+          "y": 287.997234483859
+        },
+        {
+          "gid": 43,
+          "properties": {
+            "cX": 23,
+            "cY": 36,
+            "key_id": "0"
+          },
+          "x": 183.963926729017,
+          "y": 295.974684890709
+        },
+        {
+          "gid": 43,
+          "properties": {
+            "cX": 16,
+            "cY": 35,
+            "key_id": "99"
+          },
+          "x": 127.856255066198,
+          "y": 287.977303431505
+        },
+        {
+          "gid": 43,
+          "properties": {
+            "cX": 16,
+            "cY": 36,
+            "key_id": "99"
+          },
+          "x": 127.856255066198,
+          "y": 295.948122129154
+        },
+        {
+          "gid": 43,
+          "properties": {
+            "cX": 36,
+            "cY": 33,
+            "key_id": "3"
+          },
+          "x": 288.031664915439,
+          "y": 272.020598121953
+        },
+        {
+          "gid": 43,
+          "properties": {
+            "cX": 36,
+            "cY": 34,
+            "key_id": "3"
+          },
+          "x": 288.031664915439,
+          "y": 279.998598121953
+        },
+        {
+          "gid": 40,
+          "properties": {
+            "message": "Hmm machine *locked whole *this place. *Find a way to *turn it down! **         Dan",
+            "message_id": "0"
+          },
+          "x": 143.110327622781,
+          "y": 277.832664074891
+        },
+        {
+          "gid": 42,
+          "properties": {
+            "scroll_id": "0"
+          },
+          "x": 295.786697692457,
+          "y": 304.036247715519
+        },
+        {
+          "gid": 44,
+          "properties": {
+            "cX": 27,
+            "cY": 32,
+            "key_id": "1"
+          },
+          "x": 216.014969126177,
+          "y": 264.088567329882
+        },
+        {
+          "gid": 44,
+          "properties": {
+            "cX": 28,
+            "cY": 32,
+            "key_id": "1"
+          },
+          "x": 223.967317407846,
+          "y": 264.088567329882
+        },
+        {
+          "gid": 44,
+          "properties": {
+            "cX": 43,
+            "cY": 26,
+            "key_id": "4"
+          },
+          "x": 343.929743023581,
+          "y": 216.130033954836
+        },
+        {
+          "gid": 44,
+          "properties": {
+            "cX": 44,
+            "cY": 26,
+            "key_id": "4"
+          },
+          "x": 351.881743023581,
+          "y": 216.130033954836
+        },
+        {
+          "gid": 41,
+          "properties": {
+            "key_id": "4"
+          },
+          "x": 351.960538561284,
+          "y": 208.040405553523
+        },
+        {
+          "gid": 41,
+          "properties": {
+            "key_id": "8",
+            "message": "basement open"
+          },
+          "x": 223.893219903859,
+          "y": 176.030661123198
+        },
+        {
+          "gid": 41,
+          "properties": {
+            "key_id": "3",
+            "message": "garden open"
+          },
+          "x": 159.964706387747,
+          "y": 152.002747775548
+        },
+        {
+          "gid": 43,
+          "properties": {
+            "cX": 15,
+            "cY": 3,
+            "key_id": "8"
+          },
+          "x": 119.965612538113,
+          "y": 32.0421363127097
+        },
+        {
+          "gid": 43,
+          "properties": {
+            "cX": 15,
+            "cY": 4,
+            "key_id": "8"
+          },
+          "x": 119.965612538113,
+          "y": 40.0201363127097
+        },
+        {
+          "gid": 43,
+          "properties": {
+            "cX": 7,
+            "cY": 35,
+            "key_id": "99"
+          },
+          "x": 55.9864200478847,
+          "y": 287.994347894629
+        },
+        {
+          "gid": 43,
+          "properties": {
+            "cX": 7,
+            "cY": 36,
+            "key_id": "99"
+          },
+          "x": 55.9864200478847,
+          "y": 295.965347894629
+        },
+        {
+          "gid": 44,
+          "properties": {
+            "cX": 20,
+            "cY": 24,
+            "key_id": "6"
+          },
+          "x": 160.004822951058,
+          "y": 200.038858311182
+        },
+        {
+          "gid": 44,
+          "properties": {
+            "cX": 21,
+            "cY": 24,
+            "key_id": "6"
+          },
+          "x": 167.956822951058,
+          "y": 200.038858311182
+        },
+        {
+          "gid": 44,
+          "properties": {
+            "cX": 43,
+            "cY": 6,
+            "key_id": "7"
+          },
+          "x": 344.049482255728,
+          "y": 56.0111452750509
+        },
+        {
+          "gid": 44,
+          "properties": {
+            "cX": 44,
+            "cY": 6,
+            "key_id": "7"
+          },
+          "x": 352.001482255728,
+          "y": 56.0111452750509
+        },
+        {
+          "gid": 42,
+          "properties": {
+            "scroll_id": "1"
+          },
+          "x": 360.022009871549,
+          "y": 39.9176360746903
+        },
+        {
+          "gid": 41,
+          "properties": {
+            "key_id": "7"
+          },
+          "x": 360.04990006203,
+          "y": 16.1254393824523
+        },
+        {
+          "gid": 42,
+          "properties": {
+            "scroll_id": "2"
+          },
+          "x": 359.980774807226,
+          "y": 303.981810008799
+        },
+        {
+          "gid": 42,
+          "properties": {
+            "scroll_id": "3"
+          },
+          "x": 7.9777483110204,
+          "y": 311.932761238971
+        },
+        {
+          "gid": 41,
+          "properties": {
+            "key_id": "6",
+            "message": "island open"
+          },
+          "x": 72.0635739198713,
+          "y": 79.9484141306786
+        },
+        {
+          "gid": 1,
+          "properties": {
+            "key_id": "99"
+          },
+          "x": 175.975550145427,
+          "y": 288.037648029262
+        },
+        {
+          "gid": 1,
+          "properties": {
+            "key_id": "99"
+          },
+          "x": 175.959735627496,
+          "y": 296.040782242246
+        },
+        {
+          "gid": 42,
+          "properties": {
+            "scroll_id": "4"
+          },
+          "x": 8.04977665612947,
+          "y": 16.0203051993646
+        },
+        {
+          "gid": 40,
+          "properties": {
+            "message": "keep off the *flowers...",
+            "message_id": "1"
+          },
+          "x": 223.960032778568,
+          "y": 222.382451699703
+        },
+        {
+          "gid": 40,
+          "properties": {
+            "message": "This beatiful *water... *Makes me soo *happy!",
+            "message_id": "2"
+          },
+          "x": 247.908866997143,
+          "y": 150.575282635577
+        },
+        {
+          "gid": 40,
+          "properties": {
+            "message": "Code with *five digits.. *Security!!",
+            "message_id": "3"
+          },
+          "x": 24.0332488200485,
+          "y": 110.034071874533
+        },
+        {
+          "gid": 40,
+          "properties": {
+            "message": "Someone needs *to clean this!",
+            "message_id": "4"
+          },
+          "x": 136.183798224027,
+          "y": 14.2705302013792
+        },
+        {
+          "gid": 40,
+          "properties": {
+            "message": "Who is hiding*in grass..",
+            "message_id": "5"
+          },
+          "x": 368.049794875805,
+          "y": 222.495687931816
+        },
+        {
+          "gid": 1,
+          "properties": {
+            "finish_id": 1
+          },
+          "x": 119.745771662646,
+          "y": 288.022893681401
+        },
+        {
+          "gid": 1,
+          "properties": {
+            "finish_id": 1
+          },
+          "x": 119.745771662646,
+          "y": 295.872971468535
+        }
+      ]
 
   // Collision detection function
   const checkCollision = (player, newX, newY, playerWidth = 30, playerHeight = 30) => {

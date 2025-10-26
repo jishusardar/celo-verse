@@ -1,10 +1,4 @@
 export const introText = [
-  ' ',
-  ' ',
-  'dan daaaaan!!!',
-  'what happened',
-  '. click click .',
-  '.. lock ..'
 ];
 
 export const outroText = [

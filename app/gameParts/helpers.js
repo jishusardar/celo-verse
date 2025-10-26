@@ -16,23 +16,23 @@ export function cellAvailable(tiles, x, y) {
   return tiles[Math.floor(x / 32) + (Math.floor(y / 32) * 48)];
 }
 
-export function isMobile() {
-  return 'ontouchstart' in document.documentElement;
-}
+// export function isMobile() {
+//   return 'ontouchstart' in document.documentElement;
+// }
 
-export function setMobileSize(canvas) {
-  var controlsBlock = document.getElementById('mobile-control');
-  var orientationBlock = document.getElementById('orientation');
-  var sizeY = screen.height * window.devicePixelRatio - canvas.offsetHeight
+// export function setMobileSize(canvas) {
+//   var controlsBlock = document.getElementById('mobile-control');
+//   var orientationBlock = document.getElementById('orientation');
+//   var sizeY = screen.height * window.devicePixelRatio - canvas.offsetHeight
 
-  controlsBlock.setAttribute('style', `display: flex; height: ${sizeY/4}px`);
-  canvas.setAttribute('style', `width: 99.5vmin; height: 99.5vmin; bottom: ${sizeY/4}px;`);
+//   controlsBlock.setAttribute('style', `display: flex; height: ${sizeY/4}px`);
+//   canvas.setAttribute('style', `width: 99.5vmin; height: 99.5vmin; bottom: ${sizeY/4}px;`);
 
-  window.addEventListener('orientationchange', function () {
-    if (window.orientation !== 0) {
-      orientationBlock.setAttribute('style', 'display: flex;');
-    } else {
-      orientationBlock.setAttribute('style', 'display: none;');
-    }
-  });
-}
+//   window.addEventListener('orientationchange', function () {
+//     if (window.orientation !== 0) {
+//       orientationBlock.setAttribute('style', 'display: flex;');
+//     } else {
+//       orientationBlock.setAttribute('style', 'display: none;');
+//     }
+//   });
+// }
