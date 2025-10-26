@@ -33,6 +33,8 @@ const GameCanvas = () => {
     Lucy: null,
     Nancy: null
   });
+
+  
    const { address, isConnected } = useAccount();
       const [userName, setUserName] = useState();
   
