@@ -1,6 +1,6 @@
 
 # 🎮Celoverse
-A celo blockchain-based 
+Celo Verse is a Web3 Metaverse Community Only for the Celo Blockchain, where Users Can Explore, Interact, and Take Community X^n and n ranges 1<n<=INT_MAX
 
 
 
@@ -8,8 +8,7 @@ A celo blockchain-based
 [![MIT License](https://img.shields.io/badge/Celo-Metaverse-green.svg)](https://choosealicense.com/licenses/mit/)[![GPLv3 License](https://img.shields.io/badge/Node.js-Solidity-red.svg)](https://opensource.org/licenses/)[![AGPL License](https://img.shields.io/badge/Contract-Celoverse-blue.svg)](http://www.gnu.org/licenses/agpl-3.0)[![AGPL License](https://img.shields.io/badge/Blockchain-Celoverse-pink.svg)](http://www.gnu.org/licenses/agpl-3.0)
 
 
-![Logo](https://dev-to-uploads.s3.amazonaws.com/uploads/
-) 
+![Logo](https://github.com/jishusardar/celo-verse/blob/main/public/Demo/Celoverse-logo.png)
 
 
 
@@ -20,8 +19,7 @@ A celo blockchain-based
 - Fullscreen mode.
 - Cross chating with each other.
 - Can creat customize avatar.
-![image](
-) 
+![image](https://github.com/jishusardar/celo-verse/blob/main/public/Demo/multiplayer_at_once.png) 
 
 ### 🔐Blockchain Integration
 - Celo blockchain fast and safe.
