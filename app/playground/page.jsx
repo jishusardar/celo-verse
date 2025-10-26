@@ -97,7 +97,7 @@ export default function Home() {
         {/* Header */}
         <div className="bg-black bg-opacity-20 text-white p-2 lg:p-4 flex flex-col sm:flex-row justify-between items-center gap-2">
           <div className="flex items-center space-x-2 lg:space-x-4">
-            <h1 className="text-lg lg:text-2xl font-bold">🌍 Web3 Virtual World</h1>
+            <h1 className="text-lg lg:text-2xl font-bold">Celoverse</h1>
             <div className={`px-2 lg:px-3 py-1 rounded-full text-xs lg:text-sm ${
               isConnectedBro ? 'bg-green-500' : 'bg-red-500'
             }`}>
