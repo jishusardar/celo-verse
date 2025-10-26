@@ -260,80 +260,9 @@ const GameCanvas = () => {
           // Fallback to colored rectangles
           ctx.fillStyle = getObjectColor(obj.type, obj.occupied);
           ctx.fillRect(x, y, width, height);
-
-          // Add visual details for fallback
-    //       if (obj.type === 'tree') {
-    //         ctx.fillStyle = '#8B4513';
-    //         ctx.fillRect(
-    //           (obj.x + obj.width/2 - 5) * scaleX,
-    //           (obj.y + obj.height - 20) * scaleY,
-    //           10 * scaleX,
-    //           20 * scaleY
-    //         );
-    //       } else if (obj.type === 'home') {
-    //         ctx.fillStyle = '#654321';
-    //         ctx.fillRect(
-    //           (obj.x + obj.width/2 - 8) * scaleX,
-    //           (obj.y + obj.height - 30) * scaleY,
-    //           16 * scaleX,
-    //           30 * scaleY
-    //         );
-    //         ctx.fillStyle = '#87CEEB';
-    //         ctx.fillRect((obj.x + 10) * scaleX, (obj.y + 20) * scaleY, 15 * scaleX, 15 * scaleY);
-    //         ctx.fillRect((obj.x + obj.width - 25) * scaleX, (obj.y + 20) * scaleY, 15 * scaleX, 15 * scaleY);
-    //       } else if (obj.type === 'rock') {
-    //         ctx.fillStyle = '#8B4513';
-    //         ctx.fillRect(
-    //           (obj.x + obj.width/2 - 2) * scaleX,
-    //           (obj.y - 10) * scaleY,
-    //           4 * scaleX,
-    //           15 * scaleY
-    //         );
-    //       }
     }
      });
-
-      // Draw world objects
-    //   worldObjects.forEach(obj => {
-    //     ctx.fillStyle = getObjectColor(obj.type, obj.occupied);
-    //     ctx.fillRect(obj.x * scaleX, obj.y * scaleY, obj.width * scaleX, obj.height * scaleY);
-
-    //     // Add visual details
-    //     if (obj.type === 'tree') {
-    //       // Draw tree trunk
-    //       ctx.fillStyle = '#8B4513';
-    //       ctx.fillRect(
-    //         (obj.x + obj.width/2 - 5) * scaleX, 
-    //         (obj.y + obj.height - 20) * scaleY, 
-    //         10 * scaleX, 
-    //         20 * scaleY
-    //       );
-    //     } else if (obj.type === 'home') {
-    //       // Draw door
-    //       ctx.fillStyle = '#654321';
-    //       ctx.fillRect(
-    //         (obj.x + obj.width/2 - 8) * scaleX, 
-    //         (obj.y + obj.height - 30) * scaleY, 
-    //         16 * scaleX, 
-    //         30 * scaleY
-    //       );
-    //       // Draw windows
-    //       ctx.fillStyle = '#87CEEB';
-    //       ctx.fillRect((obj.x + 10) * scaleX, (obj.y + 20) * scaleY, 15 * scaleX, 15 * scaleY);
-    //       ctx.fillRect((obj.x + obj.width - 25) * scaleX, (obj.y + 20) * scaleY, 15 * scaleX, 15 * scaleY);
-    //     } else if (obj.type === 'chair') {
-    //       // Draw chair back
-    //       ctx.fillStyle = obj.occupied ? '#FF6347' : '#8B4513';
-    //       ctx.fillRect(
-    //         (obj.x + obj.width/2 - 2) * scaleX, 
-    //         (obj.y - 10) * scaleY, 
-    //         4 * scaleX, 
-    //         15 * scaleY
-    //       );
-    //     }
-    //   });
-
-      // Draw players
+      // Select players
       players.forEach(player => {
         // Draw player character image
         if (imagesLoaded && player.avatar?.character && imagesRef.current[player.avatar.character]) {
@@ -434,7 +363,7 @@ const GameCanvas = () => {
             <div className="grid grid-cols-3 gap-2">
               <div></div>
               <button
-                className="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-lg touch-manipulation"
+                className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-lg touch-manipulation"
                 onTouchStart={() => handleTouchStart('up')}
                 onTouchEnd={() => handleTouchEnd('up')}
                 onMouseDown={() => handleTouchStart('up')}
@@ -446,7 +375,7 @@ const GameCanvas = () => {
               <div></div>
               
               <button
-                className="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-lg touch-manipulation"
+                className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-lg touch-manipulation"
                 onTouchStart={() => handleTouchStart('left')}
                 onTouchEnd={() => handleTouchEnd('left')}
                 onMouseDown={() => handleTouchStart('left')}
@@ -455,9 +384,9 @@ const GameCanvas = () => {
               >
                 ←
               </button>
-              
+
               <button
-                className="bg-gray-600 text-white p-3 rounded-lg touch-manipulation"
+                className="bg-gray-600 text-white p-2 rounded-lg touch-manipulation"
                 onTouchStart={() => {
                   if (currentPlayer?.isSitting) {
                     socket?.emit('standUp');
@@ -468,9 +397,9 @@ const GameCanvas = () => {
               >
                 💺
               </button>
-              
+
               <button
-                className="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-lg touch-manipulation"
+                className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-lg touch-manipulation"
                 onTouchStart={() => handleTouchStart('right')}
                 onTouchEnd={() => handleTouchEnd('right')}
                 onMouseDown={() => handleTouchStart('right')}
@@ -479,10 +408,10 @@ const GameCanvas = () => {
               >
                 →
               </button>
-              
+
               <div></div>
               <button
-                className="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-lg touch-manipulation"
+                className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-lg touch-manipulation"
                 onTouchStart={() => handleTouchStart('down')}
                 onTouchEnd={() => handleTouchEnd('down')}
                 onMouseDown={() => handleTouchStart('down')}

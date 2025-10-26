@@ -50,7 +50,7 @@ function Hero() {
     }
   return (
     <div className="p-20">
-      <section className="relative w-full h-[80vh] flex flex-col items-center justify-between text-black dark:text-white rounded-3xl overflow-hidden max-w-7xl mx-auto">
+      <section className="relative w-full h-[80vh] flex flex-col items-center justify-between text-white rounded-3xl overflow-hidden max-w-7xl mx-auto">
       <div className="absolute inset-0 w-full h-full">
           <Image 
             src={'/background.jpg'} 
@@ -67,7 +67,7 @@ function Hero() {
             Celoverse <br className="sm:hidden" />
           </h1>
           <p className="text-base md:text-xl text-gray-300 max-w-xl mx-auto mb-12">
-            Celo verse is a web3 gaming platform that leverages the Celo blockchain to offer players a unique gaming experience with integrated crypto rewards NFT.
+            Celo Verse Is a Web3 Metaverse Community Only For Celo Block Chain Where Users Can Explore, Interact and Take Community X^n and n ranges { `1<n<=INT_MAX`}.
           </p>
           <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
             {isConnected? (<AlertDialog>
