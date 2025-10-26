@@ -29,13 +29,13 @@ Celo Verse is a Web3 Metaverse Community Only for the Celo Blockchain, where Use
 - Live video call can be done by user with other users online.
 - Voice enable calling.
 - Secure and transparent.
-![image](https://dev-to-uploads.s3.amazonaws.com/uploads/
-) 
+![image](https://github.com/jishusardar/celo-verse/blob/main/public/Demo/videoandaudio.png)
+
 ### 📲 Live Chating calling
 - Live Chating can be done by user with other users online.
 - Secure and transparent.
-![image](https://dev-to-uploads.s3.amazonaws.com/uploads/
-) 
+![image](https://github.com/jishusardar/celo-verse/blob/main/public/Demo/videoandaudio.png)
+
 ## 🎯 System
 ### How it Works
  1. **User Join:** User Connect there wallet to celo blockchain.
