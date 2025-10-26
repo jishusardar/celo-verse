@@ -1,11 +1,21 @@
 const { createServer } = require('http');
 const { parse } = require('url');
 const next = require('next');
+
 const { Server } = require('socket.io');
+const { ethers } = require('ethers');
+const { paySingle, payMultiple, getContractBalance } = require('./payoutService');
+const cors = require('cors');
 
 const dev = process.env.NODE_ENV !== 'production';
 const hostname = 'localhost';
 const port = 3000;
+
+// Celo provider
+const celoProvider = new ethers.JsonRpcProvider(
+  process.env.CELO_RPC_URL || 'https://alfajores-forno.celo-testnet.org'
+);
+
 
 // Initialize Next.js app
 const app = next({ dev, hostname, port });
@@ -23,6 +33,10 @@ app.prepare().then(() => {
       res.end('internal server error');
     }
   });
+
+
+
+
 
   // Initialize Socket.IO
   const io = new Server(httpServer, {

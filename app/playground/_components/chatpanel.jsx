@@ -3,6 +3,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useGameContext } from '@/app/context/GameContext';
 import { Send, MessageCircle } from 'lucide-react';
+import { useAccount } from 'wagmi';
+import { redirect } from 'next/navigation';
+import { existProfile } from '@/app/action';
 
 const ChatPanel = () => {
   const { players, currentPlayer } = useGameContext();
@@ -10,6 +13,20 @@ const ChatPanel = () => {
   const [message, setMessage] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const messagesEndRef = useRef(null);
+
+   const { address, isConnected } = useAccount();
+      const [userName, setUserName] = useState();
+  
+      useEffect(() => {
+                if (!address) return;
+                async function loadUser() {
+                    const user = await existProfile(address);
+                    console.log(user);
+                    setUserName(user ? user.username : null);
+                    
+                }
+                loadUser();
+               },[address])
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -62,7 +79,7 @@ const ChatPanel = () => {
               chatMessages.map((msg, index) => (
                 <div key={index} className="chat-message">
                   <div className="font-semibold text-blue-300">
-                    {msg.playerName}:
+                    {userName}:
                   </div>
                   <div className="text-white">{msg.message}</div>
                   <div className="text-gray-400 text-xs">

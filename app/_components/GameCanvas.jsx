@@ -415,7 +415,7 @@ const GameCanvas = () => {
           ) : (
             <>
               <div>WASD / Arrow Keys: Move</div>
-              <div>Click chairs: Sit/Stand</div>
+              
               <div>Enter: Chat</div>
             </>
           )}
