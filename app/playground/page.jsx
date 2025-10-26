@@ -15,6 +15,10 @@ import ChatPanel from './_components/chatpanel';
 import { Providers } from '../lib/Providers';
 import { useAccount } from 'wagmi';
 import {existProfile} from '../action'
+import { Input } from '@/components/ui/input';
+import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
+import { Button } from '@/components/ui/button';
+import { AlertDialogCancel } from '@radix-ui/react-alert-dialog';
 
 export default function Home() {
   useEffect(() => {
@@ -117,6 +121,29 @@ export default function Home() {
             </div>
           </div>
           <div className="flex space-x-2">
+              <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button variant="outline">Send</Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Entre The Address</AlertDialogTitle>
+          <AlertDialogDescription>
+            <Input type="string" placeholder="Entre The Address"/>
+          </AlertDialogDescription>
+          </AlertDialogHeader>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Entre Amout</AlertDialogTitle>
+          <AlertDialogDescription>
+            <Input type="number" placeholder="Entre Amout"/>
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction>Continue</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
             <button
               onClick={() => setShowAvatarCustomization(!showAvatarCustomization)}
               className="px-3 lg:px-4 py-1 lg:py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors text-sm lg:text-base"
