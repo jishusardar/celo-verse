@@ -2,9 +2,50 @@
 
 import { useGameContext } from '@/app/context/GameContext';
 import { Users, User } from 'lucide-react';
+import { useAccount } from 'wagmi';
+import { redirect } from 'next/navigation';
+import { existProfile } from '@/app/action';
+import { useState,useEffect } from 'react';
+import { supabase } from '@/app/supabase/supabase';
 
 const PlayerList = () => {
   const { players, currentPlayer } = useGameContext();
+
+  const { address, isConnected } = useAccount();
+        const [userName, setUserName] = useState();
+        const [userAdd,setUserAdd] = useState()
+        const [text,setText] = useState()
+    
+        useEffect(() => {
+                  if (!address) return;
+                  async function loadUser() {
+                      const user = await existProfile(address);
+                      console.log(user);
+                      setUserName(user ? user.username : null);
+ 
+                  }
+                  // async function load() {
+                  //   const { data: profileData, error: findError } = await supabase
+                  //     .from("users")
+                  //     .select("*")
+                  //     .eq("username", userName)
+                  //     .single();
+                  
+                  //     if (findError && findError.code !== "PGRST116") {
+                  //         console.error("Error checking player:", findError);
+                  //         throw new Error("Database check failed");
+                  //     }
+                  
+                  //     if (profileData) {
+                  //         let user =  profileData;
+                  //         setUserAdd(user ? user.wallet_address : null)
+                  //     }
+                  //   }
+                  loadUser();
+                  // load()
+                 },[address])
+
+ 
 
   return (
     <div className="bg-black bg-opacity-20 p-4">
@@ -37,13 +78,13 @@ const PlayerList = () => {
             {/* Player Info */}
             <div className="flex-1 min-w-0">
               <div className="text-white font-medium truncate">
-                {player.name}
+                {userName}
                 {player.id === (currentPlayer && currentPlayer.id) && (
                   <span className="text-blue-300 ml-1">(You)</span>
                 )}
               </div>
               <div className="text-gray-300 text-xs">
-                {player.isSitting ? 'Sitting' : 'Walking'}
+                {address}
               </div>
             </div>
             
