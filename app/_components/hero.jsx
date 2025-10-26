@@ -49,7 +49,7 @@ function Hero() {
         }
     }
   return (
-    <div className="p-20">
+    <div className="p-16">
       <section className="relative w-full h-[80vh] flex flex-col items-center justify-between text-white rounded-3xl overflow-hidden max-w-7xl mx-auto">
       <div className="absolute inset-0 w-full h-full">
           <Image 
@@ -57,10 +57,8 @@ function Hero() {
             alt="background image"
             fill 
             style={{ objectFit: "cover" }}
-            sizes="100vw"
             priority
           />
-        <div className="absolute inset-0 bg-black/40" />
       </div>
       <div className="relative z-20 text-center max-w-4xl p-6 md:p-12 pt-20 flex flex-col items-center justify-center grow"> 
           <h1 className="text-5xl sm:text-7xl font-extrabold mb-6 leading-snug">
