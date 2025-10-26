@@ -8,7 +8,7 @@ A celo blockchain-based
 [![MIT License](https://img.shields.io/badge/Celo-Metaverse-green.svg)](https://choosealicense.com/licenses/mit/)[![GPLv3 License](https://img.shields.io/badge/Node.js-Solidity-red.svg)](https://opensource.org/licenses/)[![AGPL License](https://img.shields.io/badge/Contract-Celoverse-blue.svg)](http://www.gnu.org/licenses/agpl-3.0)[![AGPL License](https://img.shields.io/badge/Blockchain-Celoverse-pink.svg)](http://www.gnu.org/licenses/agpl-3.0)
 
 
-![Logo](https://dev-to-uploads.s3.amazonaws.com/uploads/
+![Logo]([https://dev-to-uploads.s3.amazonaws.com/uploads/](https://github.com/jishusardar/celo-verse/blob/main/public/Demo/Celoverse-logo.png)
 ) 
 
 
