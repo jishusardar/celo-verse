@@ -43,18 +43,27 @@ Celo Verse is a Web3 Metaverse Community Only for the Celo Blockchain, where Use
  3. **Chating :** Chat with strangers.
  4. **Video call :** Initiate Videocall if both allowed.`
  5. **Game :** Open world they can explore with friends.
+    
 ### Resolution Features
 - ✅ Community on celo that may connect developers over world.
 - ✅ Secured by bloackchian and smart conract.
+
 ## 📋 Contract Information
-- **Network** : Celo
+- **Network** : Celo Mainnet
+- **description**: THE Production Celo Network
+- **chain ID**: 42220
+- **Currency Symbol**:CELO
 ## ⏬ Deployment
- - Th
+ - git clone https://github.com/jishusardar/celo-verse
+ - cd celo-verse
+ - npm -i
+ - node server.js
+ - check https://localhost:3000
 
 ## 🎯Roadmap & Future Plans
 
 ### 🎮Gamming 
-- More ineresting games can be made over the chian due to websocket intigration.
+- More interesting games can be made over the chian due to websocket intigration.
 - Also can build some mini games like ludo, Uno, Chess etc.
 
 ### ⚙️Technical Improvements 
