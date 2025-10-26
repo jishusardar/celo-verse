@@ -257,16 +257,12 @@ const GameCanvas = () => {
             height
           );
         } else {
-          // Fallback to colored rectangles
           ctx.fillStyle = getObjectColor(obj.type, obj.occupied);
           ctx.fillRect(x, y, width, height);
     }
      });
-      // Select players
       players.forEach(player => {
-        // Draw player character image
         if (imagesLoaded && player.avatar?.character && imagesRef.current[player.avatar.character]) {
-          // Disable smoothing for pixel art
           ctx.imageSmoothingEnabled = false;
 
           ctx.drawImage(
@@ -277,12 +273,9 @@ const GameCanvas = () => {
             player.height * scaleY
           );
         } else {
-          // Fallback to colored rectangle if image not loaded
           ctx.fillStyle = player.color;
           ctx.fillRect(player.x * scaleX, player.y * scaleY, player.width * scaleX, player.height * scaleY);
         }
-
-        // Draw player name
         player.name = userName
         ctx.fillStyle = 'white';
         ctx.font = `${12 * Math.min(scaleX, scaleY)}px Arial`;

@@ -92,7 +92,7 @@ const AvatarCustomization = ({ onClose }) => {
   return (
     <div className="max-w-2xl mx-auto">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold text-gray-800 flex items-center">
+        <h2 className="text-2xl font-bold text-white-800 flex items-center">
           <Sparkles className="mr-2" />
           Customize Your Avatar
         </h2>
@@ -122,68 +122,12 @@ const AvatarCustomization = ({ onClose }) => {
               className="absolute inset-0 w-16 h-16 rounded-full border-2 border-gray-300 opacity-50"
               style={{ backgroundColor: bodyOptions.find(b => b.id === customization.body)?.color }}
             />
-            {/* Hair */}
-            <div
-              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-12 h-8 rounded-t-full opacity-75"
-              style={{ backgroundColor: hairOptions.find(h => h.id === customization.hair)?.color }}
-            />
-            {/* Clothes */}
-            <div
-              className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-14 h-8 rounded-b-lg opacity-75"
-              style={{ backgroundColor: clothesOptions.find(c => c.id === customization.clothes)?.color }}
-            />
-            {/* Accessories */}
-            {customization.accessories !== 'none' && (
-              <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 text-xl">
-                {accessoriesOptions.find(a => a.id === customization.accessories)?.icon}
-              </div>
-            )}
           </div>
         </div>
       </div>
 
       {/* Customization Options */}
       <div className="space-y-6">
-        {/* Body Color */}
-        <div>
-          <h3 className="text-lg font-semibold mb-3 flex items-center">
-            <Palette className="mr-2" />
-            Body Color
-          </h3>
-          <div className="grid grid-cols-4 gap-3">
-            {bodyOptions.map(option => renderOption(option, 'body'))}
-          </div>
-        </div>
-
-        {/* Hair */}
-        <div>
-          <h3 className="text-lg font-semibold mb-3">Hair Color</h3>
-          <div className="grid grid-cols-3 gap-3">
-            {hairOptions.map(option => renderOption(option, 'hair'))}
-          </div>
-        </div>
-
-        {/* Clothes */}
-        <div>
-          <h3 className="text-lg font-semibold mb-3 flex items-center">
-            <Shirt className="mr-2" />
-            Clothes
-          </h3>
-          <div className="grid grid-cols-3 gap-3">
-            {clothesOptions.map(option => renderOption(option, 'clothes'))}
-          </div>
-        </div>
-
-        {/* Accessories */}
-        <div>
-          <h3 className="text-lg font-semibold mb-3 flex items-center">
-            <Crown className="mr-2" />
-            Accessories
-          </h3>
-          <div className="grid grid-cols-5 gap-3">
-            {accessoriesOptions.map(option => renderOption(option, 'accessories'))}
-          </div>
-        </div>
 
         {/* Character Image */}
         <div>
