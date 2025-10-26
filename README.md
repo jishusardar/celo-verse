@@ -24,6 +24,7 @@ Celo Verse is a Web3 Metaverse Community Only for the Celo Blockchain, where Use
 ### 🔐Blockchain Integration
 - Celo blockchain fast and safe.
 - Smart Contract intigrated which is transparent.
+- ![image](https://github.com/jishusardar/celo-verse/blob/main/public/Demo/web3integration.png) 
 
 ### 🎥 Live Video calling
 - Live video call can be done by user with other users online.
