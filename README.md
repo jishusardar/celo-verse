@@ -1,6 +1,6 @@
 
 # 🎮Celoverse
-Celo Verse is a Web3 Metaverse Community Only for the Celo Blockchain, where Users Can Explore, Interact, and Take Community X^n and n ranges 1<n<=INT_MAX
+Celo Verse is a Web3 Metaverse Community Only for the Celo Blockchain, where Users Can Explore, Interact and Grow.
 
 
 
