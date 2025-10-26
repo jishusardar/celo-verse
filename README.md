@@ -54,6 +54,8 @@ Celo Verse is a Web3 Metaverse Community Only for the Celo Blockchain, where Use
 - **description**: THE Production Celo Network
 - **chain ID**: 42220
 - **Currency Symbol**:CELO
+- **Smart Contract Adderess**:0xD03E83f260FBA8c3118B856F315eD4E38C2B3522
+  
 ## ⏬ Deployment
  - git clone https://github.com/jishusardar/celo-verse
  - cd celo-verse
