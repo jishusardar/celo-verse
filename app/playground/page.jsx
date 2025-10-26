@@ -206,7 +206,7 @@ const walletClient = createWalletClient({
     </AlertDialog>
             <button
               onClick={() => setShowAvatarCustomization(!showAvatarCustomization)}
-              className="px-3 lg:px-4 py-1 lg:py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors text-sm lg:text-base"
+              className="px-3 lg:px-4 py-1 lg:py-2 bg-pink-300 hover:bg-pink-700 rounded-lg transition-colors text-sm lg:text-base"
             >
               Customize Avatar
             </button>

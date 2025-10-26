@@ -87,7 +87,7 @@ function HeroHome() {
         <section className="h-screen w-screen flex flex-col items-center justify-between text-white overflow-hidden max-w-7xl mx-auto">
           <div className="absolute inset-0 w-full h-full">
             <Image
-              src="/background.jpg"
+              src="/background_image.png"
               alt="Vibrant abstract background image"
               fill
               style={{ objectFit: "cover" }}
