@@ -5,15 +5,13 @@ import { io } from 'socket.io-client';
 import { ArrowRightIcon } from "@radix-ui/react-icons"
 import { cn } from "@/lib/utils"
 import { AnimatedShinyText} from "@/components/ui/animated-shiny-text"
-// import ChatPanel from '../components/ChatPanel';
 import AvatarCustomization from './_components/AvatarCustomization';
 import PlayerList from './_components/PlayerList';
-// import Web3Integration from '../components/Web3Integration';
+import VideoChat from './_components/VideoChat';
 
 import GameCanvas from '../_components/GameCanvas';
 import { GameProvider } from '../context/GameContext';
 import ChatPanel from './_components/chatpanel';
-//import GameCanvas from '../_components/Game';
 import { Providers } from '../lib/Providers';
 import { useAccount } from 'wagmi';
 import {existProfile} from '../action'
@@ -27,7 +25,6 @@ export default function Home() {
     }
   };
 
-  // Add {passive: false} to make preventDefault work
   window.addEventListener('keydown', handleKeyDown, { passive: false });
 
   return () => {
@@ -37,6 +34,7 @@ export default function Home() {
   const [socket, setSocket] = useState(null);
   const [isConnectedBro, setIsConnectedBro] = useState(false);
   const [showAvatarCustomization, setShowAvatarCustomization] = useState(false);
+  const [showVideoChat, setShowVideoChat] = useState(false);
   const [customiseOption, setCustomiseOption] = useState(false);
   const { address, isConnected } = useAccount();
     const [userName, setUserName] = useState();
@@ -125,6 +123,12 @@ export default function Home() {
             >
               Customize Avatar
             </button>
+            <button
+              onClick={() => setShowVideoChat(!showVideoChat)}
+              className="px-3 lg:px-4 py-1 lg:py-2 bg-green-600 hover:bg-green-700 rounded-lg transition-colors text-sm lg:text-base"
+            >
+              📹 Video Chat
+            </button>
           </div>
         </div>
 
@@ -151,6 +155,12 @@ export default function Home() {
             </div>
           </div>
         )}
+
+        {/* Video Chat Modal */}
+        <VideoChat
+          isOpen={showVideoChat}
+          onClose={() => setShowVideoChat(false)}
+        />
 
         {/* Instructions */}
         <div className="bg-black bg-opacity-20 text-white p-2 text-xs lg:text-sm text-center">

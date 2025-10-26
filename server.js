@@ -3,6 +3,9 @@ const { parse } = require('url');
 const next = require('next');
 const { Server } = require('socket.io');
 
+// Store for WebRTC rooms (playerId -> {socketId, streams})
+const videoRooms = new Map();
+
 const dev = process.env.NODE_ENV !== 'production';
 const hostname = 'localhost';
 const port = 3000;
@@ -220,6 +223,41 @@ app.prepare().then(() => {
         };
         io.emit('chatMessage', chatMsg);
       }
+    });
+
+    // WebRTC Signaling
+    socket.on('joinVideoRoom', () => {
+      const player = players.get(socket.id);
+      if (player) {
+        videoRooms.set(socket.id, { socketId: socket.id, streams: new Set() });
+        socket.emit('videoRoomJoined', Array.from(videoRooms.keys()));
+      }
+    });
+
+    socket.on('leaveVideoRoom', () => {
+     console.log('Player leaving video room:', socket.id);
+     videoRooms.delete(socket.id);
+     socket.broadcast.emit('peerLeft', socket.id);
+   });
+
+    socket.on('offer', ({ targetId, offer }) => {
+      io.to(targetId).emit('offer', { fromId: socket.id, offer });
+    });
+
+    socket.on('answer', ({ targetId, answer }) => {
+      io.to(targetId).emit('answer', { fromId: socket.id, answer });
+    });
+
+    socket.on('ice-candidate', ({ targetId, candidate }) => {
+      io.to(targetId).emit('ice-candidate', { fromId: socket.id, candidate });
+    });
+
+    socket.on('toggleVideo', ({ enabled }) => {
+      socket.broadcast.emit('peerVideoToggle', { peerId: socket.id, enabled });
+    });
+
+    socket.on('toggleAudio', ({ enabled }) => {
+      socket.broadcast.emit('peerAudioToggle', { peerId: socket.id, enabled });
     });
 
     // Handle disconnect
