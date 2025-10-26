@@ -40,6 +40,20 @@ export default function Home() {
   const [customiseOption, setCustomiseOption] = useState(false);
   const { address, isConnected } = useAccount();
     const [userName, setUserName] = useState();
+    useEffect(() => {
+  const handleKeyDown = (e) => {
+    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+      e.preventDefault();
+      return false;
+    }
+  };
+
+  window.addEventListener('keydown', handleKeyDown, { passive: false });
+
+  return () => {
+    window.removeEventListener('keydown', handleKeyDown, { passive: false });
+  };
+}, []);
 
     useEffect(() => {
               if (!address) return;
@@ -93,7 +107,7 @@ export default function Home() {
   return (
     <GameProvider socket={socket}>
         <Providers >
-      <div className="game-container h-screen flex flex-col">
+      <div className="game-container h-screen flex flex-col" style={{ backgroundImage: 'url(/background_image.png)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
         {/* Header */}
         <div className="bg-black bg-opacity-20 text-white p-2 lg:p-4 flex flex-col sm:flex-row justify-between items-center gap-2">
           <div className="flex items-center space-x-2 lg:space-x-4">
