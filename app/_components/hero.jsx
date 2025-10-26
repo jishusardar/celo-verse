@@ -37,24 +37,15 @@ function Hero() {
         if (!address) {
              toast.warning('Connect wallet')
         }
-<<<<<<< HEAD
-        if (!userName) {
-            alert('Enter user-name')
-=======
         if (!inputUserName.trim()) {
              toast.warning('Enter user-name')
->>>>>>> 009f9afe73eb23b9286e2eca4f1458f8ff4bd455
         }
         try {
             await existProfile(address);
             await upsertUser(address,userName);
         } catch (error) {
-<<<<<<< HEAD
-            throw error
-=======
             console.error('Error creating profile:', error);
             toast.error('Failed to create profile. Please try again.');
->>>>>>> 009f9afe73eb23b9286e2eca4f1458f8ff4bd455
         }
     }
   return (
