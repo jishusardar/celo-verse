@@ -6,7 +6,7 @@ import { ArrowRightIcon } from "@radix-ui/react-icons"
 import { cn } from "@/lib/utils"
 import { AnimatedShinyText} from "@/components/ui/animated-shiny-text"
 import AvatarCustomization from './_components/AvatarCustomization';
-import PlayerList from './_components/PlayerList';
+import PlayerList from './_components/playerlist';
 import VideoChat from './_components/VideoChat';
 
 import GameCanvas from '../_components/GameCanvas';
