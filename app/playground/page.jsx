@@ -29,6 +29,7 @@ import {
 } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 import { celoAlfajores } from "viem/chains";
+import { toast } from 'sonner';
 
 
 
@@ -63,18 +64,17 @@ const walletClient = createWalletClient({
       value: parseEther(amount), // Amount in CELO
     });
 
-    // Wait for transaction confirmation
     const receipt = await publicClient.waitForTransactionReceipt({
       hash: transactionHash,
     });
 
-    console.log('Transaction confirmed!');
+    toast.success('Transaction confirmed!');
     console.log('Hash:', receipt.transactionHash);
     console.log('Status:', receipt.status);
     
     return receipt;
   } catch (error) {
-    console.error('Transaction failed:', error);
+    toast.error('Transaction failed:', error);
     throw error;
   }
 }

@@ -35,7 +35,7 @@ export function PlayDialog() {
         containerClassName="rounded-full"
         as="button" className="text-xl"
       >
-        <span>Play</span>
+        Play
       </HoverBorderGradient>
 
 

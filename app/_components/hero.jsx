@@ -71,7 +71,7 @@ function Hero() {
             {isConnected? (<AlertDialog>
               <AlertDialogTrigger asChild>
             <button onClick={checkPlay}  className="px-8 py-3 text-base font-semibold rounded-full border-2 border-white text-white hover:bg-white/10 transition">
-              <div> Play </div>
+              Play
             </button>
             </AlertDialogTrigger>
             <AlertDialogContent>
