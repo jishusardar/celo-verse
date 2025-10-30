@@ -5,13 +5,13 @@ module.exports = {
   solidity: "0.8.20",
   networks: {
     celoTestnet: {
-      url: "https://alfajores-forno.celo-testnet.org",
-      accounts: [process.env.PRIVATE_KEY],
+      url: process.env.RPC_URL || "https://alfajores-forno.celo-testnet.org",
+      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
       chainId: 44787
     },
     celoMainnet: {
       url: "https://forno.celo.org",
-      accounts: [process.env.PRIVATE_KEY],
+      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
       chainId: 42220
     }
   }
